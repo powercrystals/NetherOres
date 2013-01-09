@@ -1,5 +1,6 @@
 package powercrystals.netherores.ores;
 
+import ic2.api.Ic2Recipes;
 import powercrystals.netherores.NetherOresCore;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -9,36 +10,42 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public enum Ores
 {
-	coal(0, "oreCoal", "oreNetherCoal", 8, 16),
-	diamond(1, "oreDiamond", "oreNetherDiamond", 4, 3),
-	gold(2, "oreGold", "oreNetherGold", 8, 6),
-	iron(3, "oreIron", "oreNetherIron", 8, 8),
-	lapis(4, "oreLapis", "oreNetherLapis", 6, 6),
-	redstone(5, "oreRedstone", "oreNetherRedstone", 6, 8),
-	copper(6, "oreCopper", "oreNetherCopper", 8, 8),
-	tin(7, "oreTin", "oreNetherTin", 8, 8),
-	emerald(8, "oreEmerald", "oreNetherEmerald", 3, 2),
-	silver(9, "oreSilver", "oreNetherSilver", 6, 4),
-	lead(10, "oreLead", "oreNetherLead", 6, 6),
-	uranium(11, "oreUranium", "oreNetherUranium", 3, 2),
-	nikolite(12, "oreNikolite", "oreNetherNikolite", 8, 4);
+	coal(0, "Coal", 8, 16, 1, 4),
+	diamond(1, "Diamond", 4, 3, 1, 4),
+	gold(2, "Gold", 8, 6, 1, 4),
+	iron(3, "Iron", 8, 8, 1, 4),
+	lapis(4, "Lapis", 6, 6, 1, 24),
+	redstone(5, "Redstone", 6, 8, 1, 24),
+	copper(6, "Copper", 8, 8, 1, 4),
+	tin(7, "Tin", 8, 8, 1, 4),
+	emerald(8, "Emerald", 3, 2, 1, 4),
+	silver(9, "Silver", 6, 4, 1, 4),
+	lead(10, "Lead", 6, 6, 1, 4),
+	uranium(11, "Uranium", 3, 2, 1, 4),
+	nikolite(12, "Nikolite", 8, 4, 1, 24);
 	
 	private int _metadata;
 	private String _oreName;
 	private String _netherOreName;
-	private ItemStack _smeltTo;
-	private boolean _registered;
+	private String _dustName;
+	private boolean _registeredSmelting;
+	private boolean _registeredMacerator;
 	private int _oreGenMaxY = 128;
 	private int _oreGenGroupsPerChunk = 6;
 	private int _oreGenBlocksPerGroup = 14;
+	private int _smeltCount;
+	private int _maceCount;
 	
-	private Ores(int meta, String oreName, String netherOreName, int groupsPerChunk, int blocksPerGroup)
+	private Ores(int meta, String oreSuffix, int groupsPerChunk, int blocksPerGroup, int smeltCount, int maceCount)
 	{
 		_metadata = meta;
-		_oreName = oreName;
-		_netherOreName = netherOreName;
+		_oreName = "ore" + oreSuffix;
+		_dustName = "dust" + oreSuffix;
+		_netherOreName = "oreNether" + oreSuffix;
 		_oreGenGroupsPerChunk = groupsPerChunk;
 		_oreGenBlocksPerGroup = blocksPerGroup;
+		_smeltCount = smeltCount;
+		_maceCount = maceCount; 
 	}
 	
 	public int getMetadata()
@@ -51,9 +58,19 @@ public enum Ores
 		return _oreName;
 	}
 	
-	public boolean isRegistered()
+	public String getDustName()
 	{
-		return _registered;
+		return _dustName;
+	}
+	
+	public boolean isRegisteredSmelting()
+	{
+		return _registeredSmelting;
+	}
+	
+	public boolean isRegisteredMacerator()
+	{
+		return _registeredMacerator;
 	}
 	
 	public int getMaxY()
@@ -71,19 +88,32 @@ public enum Ores
 		return _oreGenBlocksPerGroup;
 	}
 	
-	public void register(ItemStack smeltStack)
+	public void load()
 	{
-		_registered = true;
-		_smeltTo = smeltStack.copy();
-		_smeltTo.stackSize = 1;
 		MinecraftForge.setBlockHarvestLevel(NetherOresCore.blockNetherOres, _metadata, "pickaxe", 2);
-		if(NetherOresCore.enableStandardFurnaceRecipes.getBoolean(true))
-		{
-			FurnaceRecipes.smelting().addSmelting(NetherOresCore.blockNetherOres.blockID, _metadata, _smeltTo, 1F);
-		}
-
 		ItemStack oreStack = new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata);
 		OreDictionary.registerOre(_netherOreName, oreStack);
+	}
+	
+	public void registerSmelting(ItemStack smeltStack)
+	{
+		_registeredSmelting = true;
+		if(NetherOresCore.enableStandardFurnaceRecipes.getBoolean(true))
+		{
+			ItemStack smeltTo = smeltStack.copy();
+			smeltTo.stackSize = _smeltCount;
+			FurnaceRecipes.smelting().addSmelting(NetherOresCore.blockNetherOres.blockID, _metadata, smeltTo, 1F);
+		}
+	}
+	
+	public void registerMacerator(ItemStack maceStack)
+	{
+		if(NetherOresCore.enableMaceratorRecipes.getBoolean(true))
+		{
+			ItemStack maceTo = maceStack.copy();
+			maceTo.stackSize = _maceCount;
+			Ic2Recipes.addMaceratorRecipe(new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), maceTo);
+		}
 	}
 	
 	public void loadConfig(Configuration c)

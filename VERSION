@@ -1,1 +1,1 @@
-1.4.6R2.0.0 First release of 2013! New ores! More config settings!
+1.4.6R2.0.1 Macerating is back! Also, always registers nether ores with ore dictionary even if it can't find a surface ore.

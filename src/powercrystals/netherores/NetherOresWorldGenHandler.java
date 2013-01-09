@@ -25,9 +25,12 @@ public class NetherOresWorldGenHandler implements IWorldGenerator
 	{
 		for(Ores o : Ores.values())
 		{
-			for(int i = 0; i < o.getGroupsPerChunk(); i++)
+			if(o.isRegisteredSmelting() || o.isRegisteredMacerator() || NetherOresCore.forceOreSpawn.getBoolean(false))
 			{
-				new WorldGenNetherOres(NetherOresCore.blockNetherOres.blockID, o.getMetadata(), o.getBlocksPerGroup()).generate(world, random,  chunkX + random.nextInt(16), random.nextInt(o.getMaxY()), chunkZ + random.nextInt(16));
+				for(int i = 0; i < o.getGroupsPerChunk(); i++)
+				{
+					new WorldGenNetherOres(NetherOresCore.blockNetherOres.blockID, o.getMetadata(), o.getBlocksPerGroup()).generate(world, random,  chunkX + random.nextInt(16), random.nextInt(o.getMaxY()), chunkZ + random.nextInt(16));
+				}
 			}
 		}
 	}

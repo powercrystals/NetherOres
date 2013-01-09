@@ -14,6 +14,7 @@ import powercrystals.netherores.ores.ItemNetherOre;
 import powercrystals.netherores.ores.Ores;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
@@ -42,7 +43,7 @@ connectionHandler = ConnectionHandler.class)
 public class NetherOresCore implements IUpdateableMod
 {
 	public static final String modId = "NetherOres";
-	public static final String version = "1.4.6R2.0.0";
+	public static final String version = "1.4.6R2.0.1";
 	public static final String modName = "Nether Ores";
 	
 	public static final String terrainTexture = "/powercrystals/netherores/textures/terrain_0.png";
@@ -56,6 +57,8 @@ public class NetherOresCore implements IUpdateableMod
 	public static Property enableExplosionChainReactions;
 	public static Property enableAngryPigmen;
 	public static Property enableStandardFurnaceRecipes;
+	public static Property enableMaceratorRecipes;
+	public static Property forceOreSpawn;
 	
 	@SidedProxy(clientSide = "powercrystals.netherores.net.ClientProxy", serverSide="powercrystals.netherores.net.ServerProxy")
 	public static INetherOresProxy proxy;
@@ -72,14 +75,27 @@ public class NetherOresCore implements IUpdateableMod
 	{
 		GameRegistry.registerBlock(blockNetherOres, ItemNetherOre.class, "netherOresBlockOres");
 		GameRegistry.registerWorldGenerator(new NetherOresWorldGenHandler());
+		
+		for(Ores o : Ores.values())
+		{
+			o.load();
+		}
 
-		Ores.coal.register(new ItemStack(Block.oreCoal));
-		Ores.diamond.register(new ItemStack(Block.oreDiamond));
-		Ores.gold.register(new ItemStack(Block.oreGold));
-		Ores.iron.register(new ItemStack(Block.oreIron));
-		Ores.lapis.register(new ItemStack(Block.oreLapis));
-		Ores.redstone.register(new ItemStack(Block.oreRedstone));
-		Ores.emerald.register(new ItemStack(Block.oreEmerald));
+		if(enableStandardFurnaceRecipes.getBoolean(true))
+		{
+			Ores.coal.registerSmelting(new ItemStack(Block.oreCoal));
+			Ores.diamond.registerSmelting(new ItemStack(Block.oreDiamond));
+			Ores.gold.registerSmelting(new ItemStack(Block.oreGold));
+			Ores.iron.registerSmelting(new ItemStack(Block.oreIron));
+			Ores.lapis.registerSmelting(new ItemStack(Block.oreLapis));
+			Ores.redstone.registerSmelting(new ItemStack(Block.oreRedstone));
+			Ores.emerald.registerSmelting(new ItemStack(Block.oreEmerald));
+		}
+		if(enableMaceratorRecipes.getBoolean(true))
+		{
+			Ores.redstone.registerMacerator(new ItemStack(Item.redstone));
+			Ores.lapis.registerMacerator(new ItemStack(Item.dyePowder, 1, 4));
+		}
 		
 		EntityRegistry.registerModEntity(EntityArmedOre.class, "netherOresArmedOre", 0, this, 160, 5, true);
 		
@@ -89,9 +105,13 @@ public class NetherOresCore implements IUpdateableMod
 			{
 				for(Ores ore : Ores.values())
 				{
-					if(!ore.isRegistered() && ore.getOreName() == oreName)
+					if(!ore.isRegisteredSmelting() && ore.getOreName() == oreName)
 					{
-						ore.register(stack);
+						ore.registerSmelting(stack);
+					}
+					if(!ore.isRegisteredMacerator() && ore.getDustName() == oreName)
+					{
+						ore.registerMacerator(stack);
 					}
 				}
 			}
@@ -122,6 +142,10 @@ public class NetherOresCore implements IUpdateableMod
 		enableAngryPigmen.comment = "If true, when NetherOres are mined, nearby pigmen become angry to the player.";
 		enableStandardFurnaceRecipes = c.get(Configuration.CATEGORY_GENERAL, "EnableStandardFurnaceRecipes", true);
 		enableStandardFurnaceRecipes.comment = "Set this to false to remove the standard furnace recipes (ie, nether iron ore -> normal iron ore). Provided for compatibility with Metallurgy. If you set this to false and no other mod connects to this mod's ores, they will be useless.";
+		enableMaceratorRecipes = c.get(Configuration.CATEGORY_GENERAL, "EnableMaceratorRecipes", true);
+		enableMaceratorRecipes.comment = "Set this to false to remove the direct macerator recipes (ie, nether iron ore -> 4x iron dust). Provided for compatibility with Metallurgy. If you set this to false and no other mod connects to this mod's ores, they will be useless.";
+		forceOreSpawn = c.get(Configuration.CATEGORY_GENERAL, "ForceOreSpawn", false);
+		forceOreSpawn.comment = "If true, will spawn nether ores regardless of if a furnace or macerator recipe was found. If false, at least one of those two must be found to spawn the ore.";
 
 		for(Ores o : Ores.values())
 		{
@@ -136,9 +160,13 @@ public class NetherOresCore implements IUpdateableMod
 	{
 		for(Ores o : Ores.values())
 		{
-			if(event.Name.equals(o.getOreName()) && !o.isRegistered())
+			if(event.Name.equals(o.getOreName()) && !o.isRegisteredSmelting())
 			{
-				o.register(event.Ore);
+				o.registerSmelting(event.Ore);
+			}
+			if(event.Name.equals(o.getDustName()) && !o.isRegisteredMacerator())
+			{
+				o.registerMacerator(event.Ore);
 			}
 		}
 	}
