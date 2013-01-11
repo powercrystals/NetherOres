@@ -28,6 +28,9 @@ public class ClientProxy implements INetherOresProxy
         LanguageRegistry.addName(new ItemStack(NetherOresCore.blockNetherOres, 1, 10), "Nether Lead Ore");
         LanguageRegistry.addName(new ItemStack(NetherOresCore.blockNetherOres, 1, 11), "Nether Uranium Ore");
         LanguageRegistry.addName(new ItemStack(NetherOresCore.blockNetherOres, 1, 12), "Nether Nikolite Ore");
+        LanguageRegistry.addName(new ItemStack(NetherOresCore.blockNetherOres, 1, 13), "Nether Ruby Ore");
+        LanguageRegistry.addName(new ItemStack(NetherOresCore.blockNetherOres, 1, 14), "Nether Green Sapphire Ore");
+        LanguageRegistry.addName(new ItemStack(NetherOresCore.blockNetherOres, 1, 15), "Nether Sapphire Ore");
         
         RenderingRegistry.registerEntityRenderingHandler(EntityArmedOre.class, new RendererArmedOre());
 	}

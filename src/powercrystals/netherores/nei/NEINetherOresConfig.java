@@ -13,17 +13,17 @@ public class NEINetherOresConfig implements IConfigureNEI
     {
         MultiItemRange subTypes = new MultiItemRange();
         int blockID = NetherOresCore.blockNetherOres.blockID;
-        for (int i = 0; i <= 12; i++)
+        for (int i = 0; i <= 15; i++)
         {
             subTypes.add(blockID, i, i);
         }
-        API.addSetRange("Blocks.NetherOres", subTypes);
+        API.addSetRange("NetherOres", subTypes);
     }
 
     @Override
     public String getName()
     {
-        return "NetherOres";
+        return NetherOresCore.modName;
     }
 
     @Override

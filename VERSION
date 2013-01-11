@@ -1,1 +1,1 @@
-1.4.6R2.0.1 Macerating is back! Also, always registers nether ores with ore dictionary even if it can't find a surface ore.
+1.4.6R2.0.2 Fixed coal/nikolite/possibly others not working. Added RP2 gems! And macerating works if you've skipped 2.0.1.

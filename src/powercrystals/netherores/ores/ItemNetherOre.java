@@ -44,6 +44,9 @@ public class ItemNetherOre extends ItemBlock
 		if(md == Ores.lead.getMetadata()) return "itemNetherLead";
 		if(md == Ores.uranium.getMetadata()) return "itemNetherUranium";
 		if(md == Ores.nikolite.getMetadata()) return "itemNetherNikolite";
+		if(md == Ores.ruby.getMetadata()) return "itemNetherRuby";
+		if(md == Ores.rpemerald.getMetadata()) return "itemNetherRPEmerald";
+		if(md == Ores.sapphire.getMetadata()) return "itemNetherSapphire";
 		
 		return "itemNetherUnknown";
 	}
@@ -52,7 +55,7 @@ public class ItemNetherOre extends ItemBlock
 	@Override
     public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
-	    for (int i = 0; i <= 12; i++)
+	    for (int i = 0; i <= 15; i++)
 	    {
 	        par3List.add(new ItemStack(par1, 1, i));
 	    }

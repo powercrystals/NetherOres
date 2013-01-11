@@ -22,7 +22,10 @@ public enum Ores
 	silver(9, "Silver", 6, 4, 1, 4),
 	lead(10, "Lead", 6, 6, 1, 4),
 	uranium(11, "Uranium", 3, 2, 1, 4),
-	nikolite(12, "Nikolite", 8, 4, 1, 24);
+	nikolite(12, "Nikolite", 8, 4, 1, 24),
+	ruby(13, "Ruby", 6, 3, 1, 4),
+	rpemerald(14, "GreenSapphire", 6, 3, 1, 4),
+	sapphire(15, "Sapphire", 6, 3, 1, 4);
 	
 	private int _metadata;
 	private String _oreName;

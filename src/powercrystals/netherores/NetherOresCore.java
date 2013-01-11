@@ -43,7 +43,7 @@ connectionHandler = ConnectionHandler.class)
 public class NetherOresCore implements IUpdateableMod
 {
 	public static final String modId = "NetherOres";
-	public static final String version = "1.4.6R2.0.1";
+	public static final String version = "1.4.6R2.0.2";
 	public static final String modName = "Nether Ores";
 	
 	public static final String terrainTexture = "/powercrystals/netherores/textures/terrain_0.png";
@@ -101,19 +101,9 @@ public class NetherOresCore implements IUpdateableMod
 		
 		for(String oreName : OreDictionary.getOreNames())
 		{
-			for(ItemStack stack : OreDictionary.getOres(oreName))
+			if(OreDictionary.getOres(oreName).size() > 0)
 			{
-				for(Ores ore : Ores.values())
-				{
-					if(!ore.isRegisteredSmelting() && ore.getOreName() == oreName)
-					{
-						ore.registerSmelting(stack);
-					}
-					if(!ore.isRegisteredMacerator() && ore.getDustName() == oreName)
-					{
-						ore.registerMacerator(stack);
-					}
-				}
+				registerOreDictionaryEntry(oreName, OreDictionary.getOres(oreName).get(0));
 			}
 		}
 		
@@ -122,6 +112,21 @@ public class NetherOresCore implements IUpdateableMod
 		TickRegistry.registerScheduledTickHandler(new UpdateManager(this), Side.CLIENT);
 		
 		MinecraftForge.EVENT_BUS.register(this);
+	}
+	
+	private void registerOreDictionaryEntry(String oreName, ItemStack stack)
+	{
+		for(Ores ore : Ores.values())
+		{
+			if(!ore.isRegisteredSmelting() && ore.getOreName().trim().toLowerCase().equals(oreName.trim().toLowerCase()))
+			{
+				ore.registerSmelting(stack);
+			}
+			if(!ore.isRegisteredMacerator() && ore.getDustName().trim().toLowerCase().equals(oreName.trim().toLowerCase()))
+			{
+				ore.registerMacerator(stack);
+			}
+		}
 	}
 
 	private void loadConfig(File f)
@@ -158,17 +163,7 @@ public class NetherOresCore implements IUpdateableMod
 	@ForgeSubscribe
 	public void registerOreEvent(OreRegisterEvent event)
 	{
-		for(Ores o : Ores.values())
-		{
-			if(event.Name.equals(o.getOreName()) && !o.isRegisteredSmelting())
-			{
-				o.registerSmelting(event.Ore);
-			}
-			if(event.Name.equals(o.getDustName()) && !o.isRegisteredMacerator())
-			{
-				o.registerMacerator(event.Ore);
-			}
-		}
+		registerOreDictionaryEntry(event.Name, event.Ore);
 	}
 
 	@Override
