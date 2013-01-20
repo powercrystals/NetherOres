@@ -1,5 +1,6 @@
 package powercrystals.netherores.ores;
 
+import cpw.mods.fml.common.Loader;
 import ic2.api.Ic2Recipes;
 import powercrystals.netherores.NetherOresCore;
 import net.minecraft.item.ItemStack;
@@ -111,7 +112,7 @@ public enum Ores
 	
 	public void registerMacerator(ItemStack maceStack)
 	{
-		if(NetherOresCore.enableMaceratorRecipes.getBoolean(true))
+		if(NetherOresCore.enableMaceratorRecipes.getBoolean(true) && Loader.isModLoaded("IC2"))
 		{
 			ItemStack maceTo = maceStack.copy();
 			maceTo.stackSize = _maceCount;

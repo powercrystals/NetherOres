@@ -1,1 +1,1 @@
-1.4.6R2.0.2 Fixed coal/nikolite/possibly others not working. Added RP2 gems! And macerating works if you've skipped 2.0.1.
+1.4.6R2.0.3 Coal/diamonds macerate to coal/diamonds instead of dust. Won't crash if macerating is enabled but IC2 is missing.

@@ -35,7 +35,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = NetherOresCore.modId, name = NetherOresCore.modName, version = NetherOresCore.version, dependencies = "required-after:PowerCrystalsCore")
+@Mod(modid = NetherOresCore.modId, name = NetherOresCore.modName, version = NetherOresCore.version, dependencies = "required-after:PowerCrystalsCore;after:IC2")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false,
 clientPacketHandlerSpec = @SidedPacketHandler(channels = { NetherOresCore.modId }, packetHandler = ClientPacketHandler.class),
 serverPacketHandlerSpec = @SidedPacketHandler(channels = { NetherOresCore.modId }, packetHandler = ServerPacketHandler.class),
@@ -43,7 +43,7 @@ connectionHandler = ConnectionHandler.class)
 public class NetherOresCore implements IUpdateableMod
 {
 	public static final String modId = "NetherOres";
-	public static final String version = "1.4.6R2.0.2";
+	public static final String version = "1.4.6R2.0.3";
 	public static final String modName = "Nether Ores";
 	
 	public static final String terrainTexture = "/powercrystals/netherores/textures/terrain_0.png";
@@ -93,6 +93,8 @@ public class NetherOresCore implements IUpdateableMod
 		}
 		if(enableMaceratorRecipes.getBoolean(true))
 		{
+			Ores.diamond.registerMacerator(new ItemStack(Item.diamond));
+			Ores.coal.registerMacerator(new ItemStack(Item.coal));
 			Ores.redstone.registerMacerator(new ItemStack(Item.redstone));
 			Ores.lapis.registerMacerator(new ItemStack(Item.dyePowder, 1, 4));
 		}
