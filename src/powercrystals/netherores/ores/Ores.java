@@ -3,6 +3,9 @@ package powercrystals.netherores.ores;
 import cpw.mods.fml.common.Loader;
 import ic2.api.Ic2Recipes;
 import powercrystals.netherores.NetherOresCore;
+import thermalexpansion.api.core.ItemRegistry;
+import thermalexpansion.api.crafting.CraftingManagers;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.Configuration;
@@ -107,16 +110,39 @@ public enum Ores
 			ItemStack smeltTo = smeltStack.copy();
 			smeltTo.stackSize = _smeltCount;
 			FurnaceRecipes.smelting().addSmelting(NetherOresCore.blockNetherOres.blockID, _metadata, smeltTo, 1F);
+			if(Loader.isModLoaded("ThermalExpansion|Factory"))
+			{
+				ItemStack smeltToReg = smeltStack.copy();
+				ItemStack smeltToRich = smeltStack.copy();
+				
+				smeltToRich.stackSize += 1;
+			   
+				CraftingManagers.smelterManager.addRecipe(320, new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), new ItemStack(Block.sand), smeltToReg, ItemRegistry.getItem("slagRich", 1), 10, false);
+				CraftingManagers.smelterManager.addRecipe(400, new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), ItemRegistry.getItem("slagRich", 1), smeltToRich, ItemRegistry.getItem("slag", 1), 80, false);
+			}
 		}
 	}
 	
 	public void registerMacerator(ItemStack maceStack)
 	{
-		if(NetherOresCore.enableMaceratorRecipes.getBoolean(true) && Loader.isModLoaded("IC2"))
+		if(NetherOresCore.enableMaceratorRecipes.getBoolean(true))
 		{
 			ItemStack maceTo = maceStack.copy();
 			maceTo.stackSize = _maceCount;
-			Ic2Recipes.addMaceratorRecipe(new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), maceTo);
+			if(Loader.isModLoaded("IC2"))
+			{
+				Ic2Recipes.addMaceratorRecipe(new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), maceTo.copy());
+			}
+			if(Loader.isModLoaded("ThermalExpansion|Factory"))
+			{
+				ItemStack pulvPriTo = maceStack.copy();
+				ItemStack pulvSecTo = new ItemStack(Block.netherrack);
+			   
+				pulvPriTo.stackSize = _maceCount;
+				pulvSecTo.stackSize = 1;
+			   
+				CraftingManagers.pulverizerManager.addRecipe(400, new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), pulvPriTo, pulvSecTo, 15, false);
+			}
 		}
 	}
 	

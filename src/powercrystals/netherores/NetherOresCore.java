@@ -24,9 +24,11 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.PostInit;
 import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
@@ -35,7 +37,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = NetherOresCore.modId, name = NetherOresCore.modName, version = NetherOresCore.version, dependencies = "required-after:PowerCrystalsCore;after:IC2")
+@Mod(modid = NetherOresCore.modId, name = NetherOresCore.modName, version = NetherOresCore.version, dependencies = "required-after:PowerCrystalsCore;after:IC2;after:ThermalExpansion|Factory")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false,
 clientPacketHandlerSpec = @SidedPacketHandler(channels = { NetherOresCore.modId }, packetHandler = ClientPacketHandler.class),
 serverPacketHandlerSpec = @SidedPacketHandler(channels = { NetherOresCore.modId }, packetHandler = ServerPacketHandler.class),
@@ -43,7 +45,7 @@ connectionHandler = ConnectionHandler.class)
 public class NetherOresCore implements IUpdateableMod
 {
 	public static final String modId = "NetherOres";
-	public static final String version = "1.4.6R2.0.3";
+	public static final String version = "1.4.6R2.0.4";
 	public static final String modName = "Nether Ores";
 	
 	public static final String terrainTexture = "/powercrystals/netherores/textures/terrain_0.png";
@@ -80,7 +82,17 @@ public class NetherOresCore implements IUpdateableMod
 		{
 			o.load();
 		}
+		
+		EntityRegistry.registerModEntity(EntityArmedOre.class, "netherOresArmedOre", 0, this, 160, 5, true);
+		
+		proxy.load();
 
+		TickRegistry.registerScheduledTickHandler(new UpdateManager(this), Side.CLIENT);
+	}
+	
+	@PostInit
+	public void postInit(FMLPostInitializationEvent e)
+	{
 		if(enableStandardFurnaceRecipes.getBoolean(true))
 		{
 			Ores.coal.registerSmelting(new ItemStack(Block.oreCoal));
@@ -99,8 +111,6 @@ public class NetherOresCore implements IUpdateableMod
 			Ores.lapis.registerMacerator(new ItemStack(Item.dyePowder, 1, 4));
 		}
 		
-		EntityRegistry.registerModEntity(EntityArmedOre.class, "netherOresArmedOre", 0, this, 160, 5, true);
-		
 		for(String oreName : OreDictionary.getOreNames())
 		{
 			if(OreDictionary.getOres(oreName).size() > 0)
@@ -108,10 +118,6 @@ public class NetherOresCore implements IUpdateableMod
 				registerOreDictionaryEntry(oreName, OreDictionary.getOres(oreName).get(0));
 			}
 		}
-		
-		proxy.load();
-
-		TickRegistry.registerScheduledTickHandler(new UpdateManager(this), Side.CLIENT);
 		
 		MinecraftForge.EVENT_BUS.register(this);
 	}
