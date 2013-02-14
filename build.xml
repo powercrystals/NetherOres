@@ -34,6 +34,7 @@
 		<and>
 			<available file="${download.dir}/thermalexpansiongui.zip"/>
 			<available file="${download.dir}/thermalexpansion.zip"/>
+			<available file="${download.dir}/industrialcraft-2-api.zip"/>
 		</and>
 	</condition>
 
