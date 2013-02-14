@@ -51,7 +51,7 @@
 		<get src="http://www.chickenbones.craftsaddle.org/Files/NEI/NotEnoughItems%201.4.5.1.jar" dest="${lib.dir}/NotEnoughItems 1.4.5.1.jar" />
 		
 		<echo message="Downloading IC2... " />
-		<get src="http://ic2api.player.to:8080/job/IC2_lf/207/artifact/packages/industrialcraft-2_1.115.207-lf.jar" dest="${lib.dir}/industrialcraft-2_1.115.207-lf.jar" />
+		<get src="http://ic2api.player.to:8080/job/IC2_lf/205/artifact/packages/industrialcraft-2-api_1.113.205-lf.zip" dest="${download.dir}/industrialcraft-2-api.zip" />
 		
 		<echo message="Downloading BuildCraft... " />
 		<get src="http://porpchan.org/buildcraft-A-3.4.3.jar" dest="${lib.dir}/buildcraft-A-3.4.3.jar" />
@@ -66,6 +66,10 @@
 		<echo message="Extracting Thermal Expansion API... " />
 		<unzip src="${download.dir}/thermalexpansion.zip" dest="${download.dir}" />
 		<move file="${download.dir}/thermalexpansion" todir="${mcpsrc.dir}" />
+		
+		<echo message="Extracting IC2 API... " />
+		<unzip src="${download.dir}/industrialcraft-2-api.zip" dest="${download.dir}" />
+		<move file="${download.dir}/ic2" todir="${mcpsrc.dir}" />
 	</target>
 
 
@@ -125,7 +129,8 @@
 			<arg value="reobfuscate.sh" />
 		</exec>
 		
-		<delete dir="${mcp.dir}/reobf/minecraft/t/core"/>
+		<delete dir="${mcp.dir}/reobf/minecraft/ic2"/>
+		<delete dir="${mcp.dir}/reobf/minecraft/thermalexpansion"/>
 
 		<copy todir="${classes.dir}">
 			<fileset dir="${mcp.dir}/reobf/minecraft"/>
