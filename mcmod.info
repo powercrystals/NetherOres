@@ -1,0 +1,23 @@
+[
+{
+  "modid": "NetherOres",
+  "name": "Nether Ores",
+  "description": "Introduces mineable yet dangerous ores to the Nether",
+  "version": "2.0.4",
+  "mcversion": "1.4.6",
+  "url": "http://www.minecraftforum.net/topic/1629898-",
+  "updateUrl": "",
+  "authors": [
+    "PowerCrystals",
+	"TehKrush",
+	"AtomicStryker"
+  ],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]

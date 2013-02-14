@@ -114,8 +114,9 @@ public enum Ores
 			{
 				ItemStack smeltToReg = smeltStack.copy();
 				ItemStack smeltToRich = smeltStack.copy();
-				
-				smeltToRich.stackSize += 1;
+
+				smeltToReg.stackSize += 1;
+				smeltToRich.stackSize += 2;
 			   
 				CraftingManagers.smelterManager.addRecipe(320, new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), new ItemStack(Block.sand), smeltToReg, ItemRegistry.getItem("slagRich", 1), 10, false);
 				CraftingManagers.smelterManager.addRecipe(400, new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), ItemRegistry.getItem("slagRich", 1), smeltToRich, ItemRegistry.getItem("slag", 1), 80, false);
