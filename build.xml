@@ -144,6 +144,7 @@
 			<arg value="reobfuscate.sh" />
 		</exec>
 		
+		<delete dir="${mcp.dir}/reobf/minecraft/buildcraft"/>
 		<delete dir="${mcp.dir}/reobf/minecraft/ic2"/>
 		<delete dir="${mcp.dir}/reobf/minecraft/thermalexpansion"/>
 		<delete dir="${mcp.dir}/reobf/minecraft/powercrystals/core"/>
