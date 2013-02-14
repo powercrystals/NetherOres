@@ -33,6 +33,7 @@
 		<condition property="have-apis">
 		<and>
 			<available file="${download.dir}/PowerCrystalsCore-master.zip"/>
+			<available file="${download.dir}/BuildCraft-master.zip"/>
 			<available file="${download.dir}/thermalexpansiongui.zip"/>
 			<available file="${download.dir}/thermalexpansion.zip"/>
 			<available file="${download.dir}/industrialcraft-2-api.zip"/>
@@ -55,8 +56,8 @@
 		<echo message="Downloading IC2... " />
 		<get src="http://ic2api.player.to:8080/job/IC2_lf/205/artifact/packages/industrialcraft-2-api_1.113.205-lf.zip" dest="${download.dir}/industrialcraft-2-api.zip" />
 		
-		<echo message="Downloading BuildCraft... " />
-		<get src="http://porpchan.org/buildcraft-A-3.4.3.jar" dest="${lib.dir}/buildcraft-A-3.4.3.jar" />
+		<echo message="Downloading BuildCraft API..." />
+		<get src="https://github.com/BuildCraft/BuildCraft/archive/master.zip" dest="${download.dir}/BuildCraft-master.zip"/>
 		
 		<echo message="Downloading PowerCrystalsCore... " />
 		<get src="https://github.com/powercrystals/PowerCrystalsCore/archive/master.zip" dest="${download.dir}/PowerCrystalsCore-master.zip"/>
@@ -66,6 +67,11 @@
 		<echo message="Extracting PowerCrystalsCore... " />
 		<unzip src="${download.dir}/PowerCrystalsCore-master.zip" dest="${download.dir}"/>
 		<move file="${download.dir}/PowerCrystalsCore-master/src/powercrystals/core" todir="${mcpsrc.dir}/powercrystals/"/>
+		
+		<echo message="Extracting BuildCraft API..." />
+		<unzip src="${download.dir}/BuildCraft-master.zip" dest="${download.dir}"/>
+		<mkdir dir="${mcpsrc.dir}/buildcraft/" />
+		<move file="${download.dir}/BuildCraft-master/common/buildcraft/api" todir="${mcpsrc.dir}/buildcraft/"/>
 		
 		<echo message="Extracting Thermal Expansion GUI... " />
 		<unzip src="${download.dir}/thermalexpansiongui.zip" dest="${download.dir}" />
