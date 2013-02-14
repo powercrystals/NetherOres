@@ -52,6 +52,10 @@
 		
 		<echo message="Downloading IC2... " />
 		<get src="http://ic2api.player.to:8080/job/IC2_lf/207/artifact/packages/industrialcraft-2_1.115.207-lf.jar" dest="${lib.dir}/industrialcraft-2_1.115.207-lf.jar" />
+		
+		<echo message="Downloading BuildCraft... " />
+		<get src="http://porpchan.org/buildcraft-A-3.4.3.jar" dest="${lib.dir}/buildcraft-A-3.4.3.jar" />
+		
 	</target>
 
 	<target name="extract-dependencies" depends="setup-forge,get-dependencies">
