@@ -185,7 +185,7 @@
 
 		<chmod file="${forge.dir}/install.sh" perm="+x"/>
 
-		<copy file="pcc_at.cfg" todir="${forge.dir}/accesstransformers/"/>
+		<copy file="${download.dir}/PowerCrystalsCore-master/pcc_at.cfg" todir="${forge.dir}/accesstransformers/"/>
 
 		<!-- Install forge -->
 		<delete dir="${mcp.dir}" failonerror="no"/>
