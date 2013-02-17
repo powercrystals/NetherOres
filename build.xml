@@ -5,7 +5,7 @@
 	<property name="build.dir" value="build" />
 	<property name="classes.dir" value="${build.dir}/packaging" />
 	<property name="src.dir" value="src" />
-	<property name="forge.buildnum" value="524" />
+	<property name="forge.buildnum" value="527" />
 	<property name="forge.version" value="1.4.7-6.6.1.${forge.buildnum}" />
 	<property name="forge.url" value="http://files.minecraftforge.net/minecraftforge/minecraftforge-src-${forge.version}.zip" />
 	<property name="forge.dir" value="${build.dir}/forge" />
@@ -185,9 +185,7 @@
 
 		<chmod file="${forge.dir}/install.sh" perm="+x"/>
 
-		<!-- if your building on OSX these 2 should be executable -->
-
-
+		<copy file="pcc_at.cfg" todir="${forge.dir}/accesstransformers/"/>
 
 		<!-- Install forge -->
 		<delete dir="${mcp.dir}" failonerror="no"/>
