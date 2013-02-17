@@ -45,7 +45,7 @@ connectionHandler = ConnectionHandler.class)
 public class NetherOresCore implements IUpdateableMod
 {
 	public static final String modId = "NetherOres";
-	public static final String version = "1.4.6R2.0.5B2";
+	public static final String version = "1.4.6R2.0.5RC1";
 	public static final String modName = "Nether Ores";
 	
 	public static final String terrainTexture = "/powercrystals/netherores/textures/terrain_0.png";
@@ -60,6 +60,8 @@ public class NetherOresCore implements IUpdateableMod
 	public static Property enableAngryPigmen;
 	public static Property enableStandardFurnaceRecipes;
 	public static Property enableMaceratorRecipes;
+	public static Property enablePulverizerRecipes;
+	public static Property enableInductionSmelterRecipes;
 	public static Property forceOreSpawn;
 	
 	@SidedProxy(clientSide = "powercrystals.netherores.net.ClientProxy", serverSide="powercrystals.netherores.net.ServerProxy")
@@ -154,9 +156,13 @@ public class NetherOresCore implements IUpdateableMod
 		enableAngryPigmen = c.get(Configuration.CATEGORY_GENERAL, "AngryPigmenEnable", true);
 		enableAngryPigmen.comment = "If true, when NetherOres are mined, nearby pigmen become angry to the player.";
 		enableStandardFurnaceRecipes = c.get(Configuration.CATEGORY_GENERAL, "EnableStandardFurnaceRecipes", true);
-		enableStandardFurnaceRecipes.comment = "Set this to false to remove the standard furnace recipes (ie, nether iron ore -> normal iron ore). Provided for compatibility with Metallurgy. If you set this to false and no other mod connects to this mod's ores, they will be useless.";
+		enableStandardFurnaceRecipes.comment = "Set this to false to remove the standard furnace recipes (ie, nether iron ore -> normal iron ore).";
 		enableMaceratorRecipes = c.get(Configuration.CATEGORY_GENERAL, "EnableMaceratorRecipes", true);
-		enableMaceratorRecipes.comment = "Set this to false to remove the direct macerator recipes (ie, nether iron ore -> 4x iron dust). Provided for compatibility with Metallurgy. If you set this to false and no other mod connects to this mod's ores, they will be useless.";
+		enableMaceratorRecipes.comment = "Set this to false to remove the IC2 Macerator recipes (ie, nether iron ore -> 4x iron dust).";
+		enablePulverizerRecipes = c.get(Configuration.CATEGORY_GENERAL, "EnablePulverizerRecipes", true);
+		enablePulverizerRecipes.comment = "Set this to false to remove the TE Pulvierzer recipes (ie, nether iron ore -> 4x iron dust).";
+		enableInductionSmelterRecipes = c.get(Configuration.CATEGORY_GENERAL, "EnableInductionSmelterRecipes", true);
+		enableInductionSmelterRecipes.comment = "Set this to false to remove the TE Induction Smelter recipes (ie, nether iron ore -> 2x normal iron ore).";
 		forceOreSpawn = c.get(Configuration.CATEGORY_GENERAL, "ForceOreSpawn", false);
 		forceOreSpawn.comment = "If true, will spawn nether ores regardless of if a furnace or macerator recipe was found. If false, at least one of those two must be found to spawn the ore.";
 
