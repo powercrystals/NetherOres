@@ -13,7 +13,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 public class BlockNetherOres extends Block
@@ -128,7 +127,7 @@ public class BlockNetherOres extends Block
 			if(entity1 instanceof EntityPigZombie)
 			{
 				EntityPigZombie entitypigzombie = (EntityPigZombie)entity1;
-				entitypigzombie.attackEntityFrom(DamageSource.causePlayerDamage(player), 0);
+				entitypigzombie.becomeAngryAt(player);
 			}
 		}
 	}
