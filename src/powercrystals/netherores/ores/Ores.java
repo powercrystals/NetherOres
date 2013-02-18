@@ -110,40 +110,40 @@ public enum Ores
 			ItemStack smeltTo = smeltStack.copy();
 			smeltTo.stackSize = _smeltCount;
 			FurnaceRecipes.smelting().addSmelting(NetherOresCore.blockNetherOres.blockID, _metadata, smeltTo, 1F);
-			if(Loader.isModLoaded("ThermalExpansion|Factory"))
-			{
-				ItemStack smeltToReg = smeltStack.copy();
-				ItemStack smeltToRich = smeltStack.copy();
+		}
+		
+		if(NetherOresCore.enableInductionSmelterRecipes.getBoolean(true) && Loader.isModLoaded("ThermalExpansion|Factory"))
+		{
+			ItemStack smeltToReg = smeltStack.copy();
+			ItemStack smeltToRich = smeltStack.copy();
 
-				smeltToReg.stackSize += 1;
-				smeltToRich.stackSize += 2;
-			   
-				CraftingManagers.smelterManager.addRecipe(320, new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), new ItemStack(Block.sand), smeltToReg, ItemRegistry.getItem("slagRich", 1), 10, false);
-				CraftingManagers.smelterManager.addRecipe(400, new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), ItemRegistry.getItem("slagRich", 1), smeltToRich, ItemRegistry.getItem("slag", 1), 80, false);
-			}
+			smeltToReg.stackSize += 1;
+			smeltToRich.stackSize += 2;
+		   
+			CraftingManagers.smelterManager.addRecipe(320, new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), new ItemStack(Block.sand), smeltToReg, ItemRegistry.getItem("slagRich", 1), 10, false);
+			CraftingManagers.smelterManager.addRecipe(400, new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), ItemRegistry.getItem("slagRich", 1), smeltToRich, ItemRegistry.getItem("slag", 1), 80, false);
 		}
 	}
 	
 	public void registerMacerator(ItemStack maceStack)
 	{
-		if(NetherOresCore.enableMaceratorRecipes.getBoolean(true))
+		if(NetherOresCore.enableMaceratorRecipes.getBoolean(true) && Loader.isModLoaded("IC2"))
 		{
 			ItemStack maceTo = maceStack.copy();
 			maceTo.stackSize = _maceCount;
-			if(Loader.isModLoaded("IC2"))
-			{
-				Ic2Recipes.addMaceratorRecipe(new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), maceTo.copy());
-			}
-			if(Loader.isModLoaded("ThermalExpansion|Factory"))
-			{
-				ItemStack pulvPriTo = maceStack.copy();
-				ItemStack pulvSecTo = new ItemStack(Block.netherrack);
-			   
-				pulvPriTo.stackSize = _maceCount;
-				pulvSecTo.stackSize = 1;
-			   
-				CraftingManagers.pulverizerManager.addRecipe(400, new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), pulvPriTo, pulvSecTo, 15, false);
-			}
+
+			Ic2Recipes.addMaceratorRecipe(new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), maceTo.copy());
+		}
+		
+		if(NetherOresCore.enablePulverizerRecipes.getBoolean(true) && Loader.isModLoaded("ThermalExpansion|Factory"))
+		{
+			ItemStack pulvPriTo = maceStack.copy();
+			ItemStack pulvSecTo = new ItemStack(Block.netherrack);
+		   
+			pulvPriTo.stackSize = _maceCount;
+			pulvSecTo.stackSize = 1;
+		   
+			CraftingManagers.pulverizerManager.addRecipe(400, new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), pulvPriTo, pulvSecTo, 15, false);
 		}
 	}
 	
