@@ -37,7 +37,8 @@ public enum Ores
 	private String _dustName;
 	private boolean _registeredSmelting;
 	private boolean _registeredMacerator;
-	private int _oreGenMaxY = 128;
+	private int _oreGenMinY = 1;
+	private int _oreGenMaxY = 126;
 	private int _oreGenGroupsPerChunk = 6;
 	private int _oreGenBlocksPerGroup = 14;
 	private int _smeltCount;
@@ -83,6 +84,11 @@ public enum Ores
 	public int getMaxY()
 	{
 		return _oreGenMaxY;
+	}
+	
+	public int getMinY()
+	{
+		return _oreGenMinY;
 	}
 	
 	public int getGroupsPerChunk()
@@ -150,6 +156,7 @@ public enum Ores
 	public void loadConfig(Configuration c)
 	{
 		_oreGenMaxY = c.get("WorldGen", _oreName + "MaxY", _oreGenMaxY).getInt();
+		_oreGenMinY = c.get("WorldGen", _oreName + "MinY", _oreGenMaxY).getInt();
 		_oreGenGroupsPerChunk = c.get("WorldGen", _oreName + "GroupsPerChunk", _oreGenGroupsPerChunk).getInt();
 		_oreGenBlocksPerGroup = c.get("WorldGen", _oreName + "BlocksPerGroup", _oreGenBlocksPerGroup).getInt();
 	}

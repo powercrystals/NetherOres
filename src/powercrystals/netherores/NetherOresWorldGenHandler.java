@@ -29,7 +29,10 @@ public class NetherOresWorldGenHandler implements IWorldGenerator
 			{
 				for(int i = 0; i < o.getGroupsPerChunk(); i++)
 				{
-					new WorldGenNetherOres(NetherOresCore.blockNetherOres.blockID, o.getMetadata(), o.getBlocksPerGroup()).generate(world, random,  chunkX + random.nextInt(16), random.nextInt(o.getMaxY()), chunkZ + random.nextInt(16));
+					int x = chunkX + random.nextInt(16); 
+					int y = o.getMinY() + random.nextInt(o.getMaxY() - o.getMinY());
+					int z = chunkZ + random.nextInt(16);
+					new WorldGenNetherOres(NetherOresCore.blockNetherOres.blockID, o.getMetadata(), o.getBlocksPerGroup()).generate(world, random, x, y, z);
 				}
 			}
 		}
