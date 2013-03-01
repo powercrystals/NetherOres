@@ -159,5 +159,10 @@ public enum Ores
 		_oreGenMinY = c.get("WorldGen", _oreName + "MinY", _oreGenMinY).getInt();
 		_oreGenGroupsPerChunk = c.get("WorldGen", _oreName + "GroupsPerChunk", _oreGenGroupsPerChunk).getInt();
 		_oreGenBlocksPerGroup = c.get("WorldGen", _oreName + "BlocksPerGroup", _oreGenBlocksPerGroup).getInt();
+		
+		if(_oreGenMinY >= _oreGenMaxY)
+		{
+			_oreGenMinY = _oreGenMaxY - 1;
+		}
 	}
 }
