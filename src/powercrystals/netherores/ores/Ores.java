@@ -156,7 +156,7 @@ public enum Ores
 	public void loadConfig(Configuration c)
 	{
 		_oreGenMaxY = c.get("WorldGen", _oreName + "MaxY", _oreGenMaxY).getInt();
-		_oreGenMinY = c.get("WorldGen", _oreName + "MinY", _oreGenMaxY).getInt();
+		_oreGenMinY = c.get("WorldGen", _oreName + "MinY", _oreGenMinY).getInt();
 		_oreGenGroupsPerChunk = c.get("WorldGen", _oreName + "GroupsPerChunk", _oreGenGroupsPerChunk).getInt();
 		_oreGenBlocksPerGroup = c.get("WorldGen", _oreName + "BlocksPerGroup", _oreGenBlocksPerGroup).getInt();
 	}
