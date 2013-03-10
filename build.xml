@@ -50,10 +50,10 @@
 		<get src="https://dl.dropbox.com/u/57416963/Minecraft/ThermalExpansion/Release/ThermalExpansion-API-2.2.0.zip" dest="${download.dir}/thermalexpansion.zip" />
 		
 		<echo message="Downloading CodeChickenCore... " />
-		<get src="http://www.chickenbones.craftsaddle.org/Files/CodeChicken/CodeChickenCore%200.7.1.0.jar" dest="${lib.dir}/CodeChickenCore 0.7.1.0.jar" />
+		<get src="http://porpchan.org/CodeChickenCore%200.7.1.0-deobf.jar" dest="${lib.dir}/CodeChickenCore 0.7.1.0-deobf.jar" />
 		
-		<echo message="Downloading NotEnoughItems... " />
-		<get src="http://www.chickenbones.craftsaddle.org/Files/NEI/NotEnoughItems%201.4.5.1.jar" dest="${lib.dir}/NotEnoughItems 1.4.5.1.jar" />
+		<echo message="Downloading NEI... " />
+		<get src="http://porpchan.org/NotEnoughItems%201.4.5.1-deobf.jar" dest="${lib.dir}/NotEnoughItems 1.4.5.1-deobf.jar" />
 		
 		<echo message="Downloading IC2... " />
 		<get src="http://ic2api.player.to:8080/job/IC2_lf/205/artifact/packages/industrialcraft-2-api_1.113.205-lf.zip" dest="${download.dir}/industrialcraft-2-api.zip" />
@@ -155,6 +155,11 @@
 		
 		<copy todir="${classes.dir}/powercrystals/netherores/textures">
 			<fileset dir="${mcpsrc.dir}/powercrystals/netherores/textures">
+				<include name="*.png" />
+			</fileset>
+		</copy>
+		<copy todir="${classes.dir}/powercrystals/netherores/textures/mob">
+			<fileset dir="${mcpsrc.dir}/powercrystals/netherores/textures/mob">
 				<include name="*.png" />
 			</fileset>
 		</copy>

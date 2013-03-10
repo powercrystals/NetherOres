@@ -4,14 +4,17 @@ import java.io.File;
 
 import powercrystals.core.updater.IUpdateableMod;
 import powercrystals.core.updater.UpdateManager;
+import powercrystals.netherores.entity.EntityArmedOre;
+import powercrystals.netherores.entity.EntityHellfish;
 import powercrystals.netherores.net.ClientPacketHandler;
 import powercrystals.netherores.net.ConnectionHandler;
 import powercrystals.netherores.net.INetherOresProxy;
 import powercrystals.netherores.net.ServerPacketHandler;
 import powercrystals.netherores.ores.BlockNetherOres;
-import powercrystals.netherores.ores.EntityArmedOre;
 import powercrystals.netherores.ores.ItemNetherOre;
 import powercrystals.netherores.ores.Ores;
+import powercrystals.netherores.world.BlockHellfish;
+import powercrystals.netherores.world.NetherOresWorldGenHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -45,19 +48,25 @@ connectionHandler = ConnectionHandler.class)
 public class NetherOresCore implements IUpdateableMod
 {
 	public static final String modId = "NetherOres";
-	public static final String version = "1.4.6R2.0.6";
+	public static final String version = "1.4.6R2.1.0B1";
 	public static final String modName = "Nether Ores";
 	
-	public static final String terrainTexture = "/powercrystals/netherores/textures/terrain_0.png";
+	private static final String _textureBase = "/powercrystals/netherores/textures/";
+	public static final String terrainTexture = _textureBase + "terrain_0.png";
+	public static final String mobTexureFolder = _textureBase + "mob/";
 
 	public static Block blockNetherOres;
+	public static Block blockHellfish;
+	
 	private static Property netherOreBlockId;
+	private static Property hellfishBlockId;
 
 	public static Property explosionPower;
 	public static Property explosionProbability;
 	public static Property enableExplosions;
 	public static Property enableExplosionChainReactions;
 	public static Property enableAngryPigmen;
+	public static Property enableHellfish;
 	public static Property enableStandardFurnaceRecipes;
 	public static Property enableMaceratorRecipes;
 	public static Property enablePulverizerRecipes;
@@ -71,13 +80,16 @@ public class NetherOresCore implements IUpdateableMod
 	public void preInit(FMLPreInitializationEvent evt)
 	{
 		loadConfig(evt.getSuggestedConfigurationFile());
-		blockNetherOres = new BlockNetherOres(Integer.parseInt(netherOreBlockId.value), 0);
 	}
 
 	@Init
 	public void load(FMLInitializationEvent evt)
 	{
+		blockNetherOres = new BlockNetherOres(netherOreBlockId.getInt());
+		blockHellfish = new BlockHellfish(hellfishBlockId.getInt());
+		
 		GameRegistry.registerBlock(blockNetherOres, ItemNetherOre.class, "netherOresBlockOres");
+		GameRegistry.registerBlock(blockHellfish, "netherOresBlockHellfish");
 		GameRegistry.registerWorldGenerator(new NetherOresWorldGenHandler());
 		
 		for(Ores o : Ores.values())
@@ -86,6 +98,7 @@ public class NetherOresCore implements IUpdateableMod
 		}
 		
 		EntityRegistry.registerModEntity(EntityArmedOre.class, "netherOresArmedOre", 0, this, 160, 5, true);
+		EntityRegistry.registerModEntity(EntityHellfish.class, "netherOresHellfish", 1, this, 160, 5, true);
 		
 		proxy.load();
 
@@ -145,6 +158,8 @@ public class NetherOresCore implements IUpdateableMod
 		c.load();
 
 		netherOreBlockId = c.getBlock(Configuration.CATEGORY_BLOCK, "ID.NetherOreBlock", 1440);
+		hellfishBlockId = c.getBlock(Configuration.CATEGORY_BLOCK, "ID.HellfishBlock", 1441);
+		
 		explosionPower = c.get(Configuration.CATEGORY_GENERAL, "ExplosionPower", 2);
 		explosionPower.comment = "How powerful an explosion will be. Creepers are 3, TNT is 4, electrified creepers are 6. This affects both the ability of the explosion to punch through blocks as well as the blast radius.";
 		explosionProbability = c.get(Configuration.CATEGORY_GENERAL, "ExplosionProbability", 75);
@@ -165,6 +180,8 @@ public class NetherOresCore implements IUpdateableMod
 		enableInductionSmelterRecipes.comment = "Set this to false to remove the TE Induction Smelter recipes (ie, nether iron ore -> 2x normal iron ore).";
 		forceOreSpawn = c.get(Configuration.CATEGORY_GENERAL, "ForceOreSpawn", false);
 		forceOreSpawn.comment = "If true, will spawn nether ores regardless of if a furnace or macerator recipe was found. If false, at least one of those two must be found to spawn the ore.";
+		enableHellfish = c.get(Configuration.CATEGORY_GENERAL, "HellfishEnable", true);
+		enableHellfish.comment = "If true, Hellfish will spawn in the Nether. Note that setting this false will not remove already spawned Hellfish.";
 
 		for(Ores o : Ores.values())
 		{

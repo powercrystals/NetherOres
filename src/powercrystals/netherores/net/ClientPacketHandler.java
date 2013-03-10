@@ -4,7 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 
 import powercrystals.core.net.PacketWrapper;
-import powercrystals.netherores.ores.EntityArmedOre;
+import powercrystals.netherores.entity.EntityArmedOre;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;

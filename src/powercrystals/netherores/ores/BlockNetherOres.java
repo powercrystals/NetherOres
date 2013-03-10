@@ -7,6 +7,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 
 import powercrystals.core.net.PacketWrapper;
 import powercrystals.netherores.NetherOresCore;
+import powercrystals.netherores.entity.EntityArmedOre;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -19,9 +20,9 @@ public class BlockNetherOres extends Block
 {	
 	private static int aggroRange = 32;
 	
-	public BlockNetherOres(int i, int j)
+	public BlockNetherOres(int blockId)
 	{
-		super(i, j, Block.netherrack.blockMaterial);
+		super(blockId, 0, Block.netherrack.blockMaterial);
 		setHardness(5.0F);
 		setResistance(1.0F);
 		setBlockName("blockNetherOres");

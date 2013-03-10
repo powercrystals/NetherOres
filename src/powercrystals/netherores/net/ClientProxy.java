@@ -2,10 +2,12 @@ package powercrystals.netherores.net;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.client.renderer.entity.RenderSilverfish;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.MinecraftForgeClient;
 import powercrystals.netherores.NetherOresCore;
-import powercrystals.netherores.ores.EntityArmedOre;
+import powercrystals.netherores.entity.EntityArmedOre;
+import powercrystals.netherores.entity.EntityHellfish;
 import powercrystals.netherores.render.RendererArmedOre;
 
 public class ClientProxy implements INetherOresProxy
@@ -32,6 +34,9 @@ public class ClientProxy implements INetherOresProxy
         LanguageRegistry.addName(new ItemStack(NetherOresCore.blockNetherOres, 1, 14), "Nether Green Sapphire Ore");
         LanguageRegistry.addName(new ItemStack(NetherOresCore.blockNetherOres, 1, 15), "Nether Sapphire Ore");
         
+        LanguageRegistry.addName(new ItemStack(NetherOresCore.blockHellfish), "Netherrack");
+        
         RenderingRegistry.registerEntityRenderingHandler(EntityArmedOre.class, new RendererArmedOre());
+		RenderingRegistry.registerEntityRenderingHandler(EntityHellfish.class, new RenderSilverfish());
 	}
 }

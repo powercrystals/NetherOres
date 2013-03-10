@@ -1,4 +1,4 @@
-package powercrystals.netherores.ores;
+package powercrystals.netherores.entity;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

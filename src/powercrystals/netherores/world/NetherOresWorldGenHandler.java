@@ -1,9 +1,9 @@
-package powercrystals.netherores;
+package powercrystals.netherores.world;
 
 import java.util.Random;
 
+import powercrystals.netherores.NetherOresCore;
 import powercrystals.netherores.ores.Ores;
-import powercrystals.netherores.ores.WorldGenNetherOres;
 
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -34,6 +34,17 @@ public class NetherOresWorldGenHandler implements IWorldGenerator
 					int z = chunkZ + random.nextInt(16);
 					new WorldGenNetherOres(NetherOresCore.blockNetherOres.blockID, o.getMetadata(), o.getBlocksPerGroup()).generate(world, random, x, y, z);
 				}
+			}
+		}
+		
+		if(NetherOresCore.enableHellfish.getBoolean(true))
+		{
+			for(int i = 0; i < 3; i++)
+			{
+				int x = chunkX + random.nextInt(16); 
+				int y = random.nextInt(128);
+				int z = chunkZ + random.nextInt(16);
+				new WorldGenNetherOres(NetherOresCore.blockHellfish.blockID, 0, 8).generate(world, random, x, y, z);
 			}
 		}
 	}

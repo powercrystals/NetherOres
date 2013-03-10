@@ -3,7 +3,7 @@ package powercrystals.netherores.render;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 
-import powercrystals.netherores.ores.EntityArmedOre;
+import powercrystals.netherores.entity.EntityArmedOre;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

@@ -1,4 +1,4 @@
-package powercrystals.netherores.ores;
+package powercrystals.netherores.world;
 
 import java.util.Random;
 
