@@ -49,7 +49,7 @@ public class EntityHellfish extends EntitySilverfish
 								if(blockId == NetherOresCore.blockHellfish.blockID)
 								{
 									this.worldObj.playAuxSFX(2001, positionX + y, positionY + x, positionZ + z, NetherOresCore.blockHellfish.blockID + (this.worldObj.getBlockMetadata(positionX + y, positionY + x, positionZ + z) << 12));
-									this.worldObj.setBlockWithNotify(positionX + y, positionY + x, positionZ + z, 0);
+									this.worldObj.setBlockAndMetadataWithNotify(positionX + y, positionY + x, positionZ + z, 0, 0, 0);
 									NetherOresCore.blockHellfish.onBlockDestroyedByPlayer(this.worldObj, positionX + y, positionY + x, positionZ + z, 0);
 
 									if(this.rand.nextBoolean())
@@ -74,7 +74,7 @@ public class EntityHellfish extends EntitySilverfish
 
 				if(blockId == Block.netherrack.blockID && this.rand.nextInt(3) == 0)
 				{
-					this.worldObj.setBlockAndMetadataWithNotify(positionX + Facing.offsetsXForSide[direction], positionY + Facing.offsetsYForSide[direction], positionZ + Facing.offsetsZForSide[direction], NetherOresCore.blockHellfish.blockID, 0);
+					this.worldObj.setBlockAndMetadataWithNotify(positionX + Facing.offsetsXForSide[direction], positionY + Facing.offsetsYForSide[direction], positionZ + Facing.offsetsZForSide[direction], NetherOresCore.blockHellfish.blockID, 0, 0);
 					this.spawnExplosionParticle();
 					this.setDead();
 				}

@@ -10,35 +10,48 @@ import powercrystals.netherores.NetherOresCore;
 import powercrystals.netherores.entity.EntityArmedOre;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 public class BlockNetherOres extends Block
 {	
-	private static int aggroRange = 32;
+	private static int _aggroRange = 32;
+	private Icon[] _netherOresIcons = new Icon[16];
 	
-	public BlockNetherOres(int blockId)
+	public BlockNetherOres(int blockId, int blockIndex)
 	{
-		super(blockId, 0, Block.netherrack.blockMaterial);
+		super(blockId, Block.netherrack.blockMaterial);
 		setHardness(5.0F);
 		setResistance(1.0F);
-		setBlockName("blockNetherOres");
+		setUnlocalizedName("blockNetherOres" + blockIndex);
 		setStepSound(soundStoneFootstep);
-		setRequiresSelfNotify();
-	}
-	
-	public int getBlockTextureFromSideAndMetadata(int i, int j)
-	{
-		return j;
 	}
 	
 	@Override
-	public int damageDropped(int i)
+	public void func_94332_a(IconRegister ir)
 	{
-		return i;
+		for(int i = 0; i < 16; i++)
+		{
+			_netherOresIcons[i] = ir.func_94245_a("powercrystals/netherores/" + getUnlocalizedName() + "_" + i);
+		}
+	}
+	
+	@Override
+	public Icon getBlockTextureFromSideAndMetadata(int side, int meta)
+	{
+		return _netherOresIcons[meta];
+	}
+	
+	@Override
+	public int damageDropped(int meta)
+	{
+		return meta;
 	}
 	
 	@Override
@@ -48,28 +61,28 @@ public class BlockNetherOres extends Block
 	}
 	
 	@Override
-	public void harvestBlock(World world, EntityPlayer entityplayer, int i, int j, int k, int l)
+	public void harvestBlock(World world, EntityPlayer entityplayer, int x, int y, int z, int fortune)
 	{
-		super.harvestBlock(world, entityplayer, i, j, k, l);
+		super.harvestBlock(world, entityplayer, x, y, z, fortune);
 		if(NetherOresCore.enableAngryPigmen.getBoolean(true))
 		{
-			angerPigmen(entityplayer, world, i, j, k);
+			angerPigmen(entityplayer, world, x, y, z);
 		}
 	}
 	
 	@Override
-	public boolean removeBlockByPlayer(World world, EntityPlayer player, int i, int j, int k)
+	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z)
 	{
-		checkExplosionChances(world, i, j, k);
-		return super.removeBlockByPlayer(world, player, i, j, k);
+		checkExplosionChances(world, x, y, z);
+		return super.removeBlockByPlayer(world, player, x, y, z);
 	}
 	
 	@Override
-	public void onBlockDestroyedByExplosion(World world, int i, int j, int k)
+	public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion explosion)
 	{
 		if(NetherOresCore.enableExplosionChainReactions.getBoolean(true))
 		{
-			checkExplosionChances(world, i, j, k);
+			checkExplosionChances(world, x, y, z);
 		}
 	}
 	
@@ -109,19 +122,11 @@ public class BlockNetherOres extends Block
 			}
 		}
 	}
-		
-	
-
-	@Override
-	public String getTextureFile()
-	{
-		return NetherOresCore.terrainTexture;
-	}
 	
 	private void angerPigmen(EntityPlayer player, World world, int x, int y, int z)
 	{
 		List<?> list = world.getEntitiesWithinAABB(EntityPigZombie.class,
-				AxisAlignedBB.getBoundingBox(x - aggroRange, y - aggroRange, z - aggroRange, x + aggroRange + 1, y + aggroRange + 1, z + aggroRange + 1));
+				AxisAlignedBB.getBoundingBox(x - _aggroRange, y - _aggroRange, z - _aggroRange, x + _aggroRange + 1, y + _aggroRange + 1, z + _aggroRange + 1));
 		for(int j = 0; j < list.size(); j++)
 		{
 			Entity entity1 = (Entity)list.get(j);

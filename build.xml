@@ -7,8 +7,8 @@
 	<property name="build.dir" value="build" />
 	<property name="classes.dir" value="${build.dir}/packaging" />
 	<property name="src.dir" value="src" />
-	<property name="forge.buildnum" value="527" />
-	<property name="forge.version" value="1.4.7-6.6.1.${forge.buildnum}" />
+	<property name="forge.buildnum" value="583" />
+	<property name="forge.version" value="1.5-7.7.0.${forge.buildnum}" />
 	<property name="forge.url" value="http://files.minecraftforge.net/minecraftforge/minecraftforge-src-${forge.version}.zip" />
 	<property name="forge.dir" value="${build.dir}/forge" />
 	<property name="mcp.dir" value="${forge.dir}/mcp" />
@@ -36,16 +36,12 @@
 		<and>
 			<available file="${download.dir}/PowerCrystalsCore-master.zip"/>
 			<available file="${download.dir}/BuildCraft-master.zip"/>
-			<available file="${download.dir}/thermalexpansiongui.zip"/>
 			<available file="${download.dir}/thermalexpansion.zip"/>
 			<available file="${download.dir}/industrialcraft-2-api.zip"/>
 		</and>
 	</condition>
 
 	<target name="get-dependencies" depends="get-version" unless="${have-apis}">
-		<echo message="Downloading Thermal Expansion GUI... " />
-		<get src="https://dl.dropbox.com/u/57416963/Minecraft/ThermalExpansion/Source/ThermalExpansion-SRC-2.1.7-GUI.zip" dest="${download.dir}/thermalexpansiongui.zip" />
-		
 		<echo message="Downloading Thermal Expansion API... " />
 		<get src="https://dl.dropbox.com/u/57416963/Minecraft/ThermalExpansion/Release/ThermalExpansion-API-2.2.0.zip" dest="${download.dir}/thermalexpansion.zip" />
 		
@@ -71,10 +67,11 @@
 		<unzip src="${download.dir}/BuildCraft-master.zip" dest="${download.dir}"/>
 		<mkdir dir="${mcpsrc.dir}/buildcraft/" />
 		<move file="${download.dir}/BuildCraft-master/common/buildcraft/api" todir="${mcpsrc.dir}/buildcraft/"/>
-		
-		<echo message="Extracting Thermal Expansion GUI... " />
-		<unzip src="${download.dir}/thermalexpansiongui.zip" dest="${download.dir}" />
-		<move file = "${download.dir}/thermalexpansion" todir="${mcpsrc.dir}" />
+
+		<echo message="Deleting extra BC API classes" />
+		<delete dir="${mcpsrc.dir}/buildcraft/api/blueprints/" />
+		<delete dir="${mcpsrc.dir}/buildcraft/api/bptblocks/" />
+		<delete file="${mcpsrc.dir}/buildcraft/api/core/BuildCraftAPI.java" />
 		
 		<echo message="Extracting Thermal Expansion API... " />
 		<unzip src="${download.dir}/thermalexpansion.zip" dest="${download.dir}" />
@@ -153,13 +150,13 @@
 			<fileset dir="${mcp.dir}/reobf/minecraft"/>
 		</copy>
 		
-		<copy todir="${classes.dir}/powercrystals/netherores/textures">
-			<fileset dir="${mcpsrc.dir}/powercrystals/netherores/textures">
+		<copy todir="${classes.dir}/texture/blocks/powercrystals/netherores">
+			<fileset dir="${mcpsrc.dir}/powercrystals/netherores/texture/blocks/powercrystals/netherores">
 				<include name="*.png" />
 			</fileset>
 		</copy>
-		<copy todir="${classes.dir}/powercrystals/netherores/textures/mob">
-			<fileset dir="${mcpsrc.dir}/powercrystals/netherores/textures/mob">
+		<copy todir="${classes.dir}/texture/mob/powercrystals/netherores">
+			<fileset dir="${mcpsrc.dir}/powercrystals/netherores/texture/mob/powercrystals/netherores">
 				<include name="*.png" />
 			</fileset>
 		</copy>

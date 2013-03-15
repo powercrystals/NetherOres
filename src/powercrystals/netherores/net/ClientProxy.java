@@ -4,7 +4,6 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.client.renderer.entity.RenderSilverfish;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.MinecraftForgeClient;
 import powercrystals.netherores.NetherOresCore;
 import powercrystals.netherores.entity.EntityArmedOre;
 import powercrystals.netherores.entity.EntityHellfish;
@@ -15,8 +14,6 @@ public class ClientProxy implements INetherOresProxy
 	@Override
 	public void load()
 	{
-        MinecraftForgeClient.preloadTexture(NetherOresCore.terrainTexture);
-
         LanguageRegistry.addName(new ItemStack(NetherOresCore.blockNetherOres, 1, 0), "Nether Coal Ore");
         LanguageRegistry.addName(new ItemStack(NetherOresCore.blockNetherOres, 1, 1), "Nether Diamond Ore");
         LanguageRegistry.addName(new ItemStack(NetherOresCore.blockNetherOres, 1, 2), "Nether Gold Ore");

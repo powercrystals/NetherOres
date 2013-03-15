@@ -51,9 +51,7 @@ public class NetherOresCore implements IUpdateableMod
 	public static final String version = "1.4.6R2.1.0B1";
 	public static final String modName = "Nether Ores";
 	
-	private static final String _textureBase = "/powercrystals/netherores/textures/";
-	public static final String terrainTexture = _textureBase + "terrain_0.png";
-	public static final String mobTexureFolder = _textureBase + "mob/";
+	public static final String mobTexureFolder = "/mob/powercrystals/netherores";
 
 	public static Block blockNetherOres;
 	public static Block blockHellfish;
@@ -85,7 +83,7 @@ public class NetherOresCore implements IUpdateableMod
 	@Init
 	public void load(FMLInitializationEvent evt)
 	{
-		blockNetherOres = new BlockNetherOres(netherOreBlockId.getInt());
+		blockNetherOres = new BlockNetherOres(netherOreBlockId.getInt(), 0);
 		blockHellfish = new BlockHellfish(hellfishBlockId.getInt());
 		
 		GameRegistry.registerBlock(blockNetherOres, ItemNetherOre.class, "netherOresBlockOres");

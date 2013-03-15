@@ -4,16 +4,32 @@ import java.util.Random;
 
 import powercrystals.netherores.entity.EntityHellfish;
 import net.minecraft.block.BlockNetherrack;
+import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
 public class BlockHellfish extends BlockNetherrack
 {
+	private Icon _icon;
+	
 	public BlockHellfish(int blockId)
 	{
-		super(blockId, 103);
+		super(blockId);
 		setHardness(0.4F);
 		setStepSound(soundStoneFootstep);
-		setBlockName("hellfish");
+		setUnlocalizedName("blockNetherOresHellfish");
+	}
+	
+	@Override
+	public void func_94332_a(IconRegister ir)
+	{
+		_icon = ir.func_94245_a("powercrystals/netherores/" + getUnlocalizedName());
+	}
+	
+	@Override
+	public Icon getBlockTextureFromSideAndMetadata(int side, int meta)
+	{
+		return _icon;
 	}
 	
 	public int quantityDropped(Random rand)
