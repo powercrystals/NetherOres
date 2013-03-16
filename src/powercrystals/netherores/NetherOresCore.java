@@ -11,7 +11,7 @@ import powercrystals.netherores.net.ConnectionHandler;
 import powercrystals.netherores.net.INetherOresProxy;
 import powercrystals.netherores.net.ServerPacketHandler;
 import powercrystals.netherores.ores.BlockNetherOres;
-import powercrystals.netherores.ores.ItemNetherOre;
+import powercrystals.netherores.ores.ItemBlockNetherOre;
 import powercrystals.netherores.ores.Ores;
 import powercrystals.netherores.world.BlockHellfish;
 import powercrystals.netherores.world.NetherOresWorldGenHandler;
@@ -51,7 +51,7 @@ public class NetherOresCore implements IUpdateableMod
 	public static final String version = "1.4.6R2.1.0B1";
 	public static final String modName = "Nether Ores";
 	
-	public static final String mobTexureFolder = "/mob/powercrystals/netherores";
+	public static final String mobTexureFolder = "/textures/mob/powercrystals/netherores";
 
 	public static Block blockNetherOres;
 	public static Block blockHellfish;
@@ -77,7 +77,7 @@ public class NetherOresCore implements IUpdateableMod
 	@PreInit
 	public void preInit(FMLPreInitializationEvent evt)
 	{
-		loadConfig(evt.getSuggestedConfigurationFile());
+		loadConfig(new File(evt.getModConfigurationDirectory() + "powercrystals/netherores_common.cfg"));
 	}
 
 	@Init
@@ -86,7 +86,7 @@ public class NetherOresCore implements IUpdateableMod
 		blockNetherOres = new BlockNetherOres(netherOreBlockId.getInt(), 0);
 		blockHellfish = new BlockHellfish(hellfishBlockId.getInt());
 		
-		GameRegistry.registerBlock(blockNetherOres, ItemNetherOre.class, "netherOresBlockOres");
+		GameRegistry.registerBlock(blockNetherOres, ItemBlockNetherOre.class, "netherOresBlockOres");
 		GameRegistry.registerBlock(blockHellfish, "netherOresBlockHellfish");
 		GameRegistry.registerWorldGenerator(new NetherOresWorldGenHandler());
 		

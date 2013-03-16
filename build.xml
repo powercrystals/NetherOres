@@ -150,13 +150,13 @@
 			<fileset dir="${mcp.dir}/reobf/minecraft"/>
 		</copy>
 		
-		<copy todir="${classes.dir}/texture/blocks/powercrystals/netherores">
-			<fileset dir="${mcpsrc.dir}/powercrystals/netherores/texture/blocks/powercrystals/netherores">
+		<copy todir="${classes.dir}/textures/blocks/powercrystals/netherores">
+			<fileset dir="${mcpsrc.dir}/powercrystals/netherores/textures/blocks/powercrystals/netherores">
 				<include name="*.png" />
 			</fileset>
 		</copy>
-		<copy todir="${classes.dir}/texture/mob/powercrystals/netherores">
-			<fileset dir="${mcpsrc.dir}/powercrystals/netherores/texture/mob/powercrystals/netherores">
+		<copy todir="${classes.dir}/textures/mob/powercrystals/netherores">
+			<fileset dir="${mcpsrc.dir}/powercrystals/netherores/textures/mob/powercrystals/netherores">
 				<include name="*.png" />
 			</fileset>
 		</copy>

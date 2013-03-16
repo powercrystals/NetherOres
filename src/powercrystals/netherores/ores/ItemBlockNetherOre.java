@@ -2,13 +2,14 @@ package powercrystals.netherores.ores;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class ItemNetherOre extends ItemBlock
+public class ItemBlockNetherOre extends ItemBlock
 {
-	public ItemNetherOre(int i)
+	public ItemBlockNetherOre(int i)
 	{
 		super(i);
 		setHasSubtypes(true);
@@ -19,6 +20,12 @@ public class ItemNetherOre extends ItemBlock
 	public int getMetadata(int i)
 	{
 		return i;
+	}
+	
+	@Override
+	public String getUnlocalizedName(ItemStack stack)
+	{
+		return Block.blocksList[getBlockID()].getUnlocalizedName() + "_" + stack.getItemDamage();
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
