@@ -11,7 +11,7 @@ public class ClientProxy implements INetherOresProxy
 	@Override
 	public void load()
 	{
-        RenderingRegistry.registerEntityRenderingHandler(EntityArmedOre.class, new RendererArmedOre());
+		RenderingRegistry.registerEntityRenderingHandler(EntityArmedOre.class, new RendererArmedOre());
 		RenderingRegistry.registerEntityRenderingHandler(EntityHellfish.class, new RenderSilverfish());
 	}
 }

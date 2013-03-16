@@ -39,12 +39,12 @@ public class NetherOresWorldGenHandler implements IWorldGenerator
 		
 		if(NetherOresCore.enableHellfish.getBoolean(true))
 		{
-			for(int i = 0; i < 3; i++)
+			for(int i = 0; i < 5; i++)
 			{
 				int x = chunkX + random.nextInt(16); 
 				int y = random.nextInt(128);
 				int z = chunkZ + random.nextInt(16);
-				new WorldGenNetherOres(NetherOresCore.blockHellfish.blockID, 0, 8).generate(world, random, x, y, z);
+				new WorldGenNetherOres(NetherOresCore.blockHellfish.blockID, 0, 12).generate(world, random, x, y, z);
 			}
 		}
 	}

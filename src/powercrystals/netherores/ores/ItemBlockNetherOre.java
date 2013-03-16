@@ -33,11 +33,11 @@ public class ItemBlockNetherOre extends ItemBlock
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List)
-    {
-	    for (int i = 0; i <= 15; i++)
-	    {
-	        par3List.add(new ItemStack(par1, 1, i));
-	    }
-    }
+	public void getSubItems(int itemId, CreativeTabs creativeTab, List subTypes)
+	{
+		for (int i = 0; i <= 15; i++)
+		{
+			subTypes.add(new ItemStack(itemId, 1, i));
+		}
+	}
 }
