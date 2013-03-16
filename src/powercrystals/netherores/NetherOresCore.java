@@ -2,7 +2,7 @@ package powercrystals.netherores;
 
 import java.io.File;
 
-import powercrystals.core.updater.IUpdateableMod;
+import powercrystals.core.mod.BaseMod;
 import powercrystals.core.updater.UpdateManager;
 import powercrystals.netherores.entity.EntityArmedOre;
 import powercrystals.netherores.entity.EntityHellfish;
@@ -45,10 +45,10 @@ import cpw.mods.fml.relauncher.Side;
 clientPacketHandlerSpec = @SidedPacketHandler(channels = { NetherOresCore.modId }, packetHandler = ClientPacketHandler.class),
 serverPacketHandlerSpec = @SidedPacketHandler(channels = { NetherOresCore.modId }, packetHandler = ServerPacketHandler.class),
 connectionHandler = ConnectionHandler.class)
-public class NetherOresCore implements IUpdateableMod
+public class NetherOresCore extends BaseMod
 {
 	public static final String modId = "NetherOres";
-	public static final String version = "1.4.6R2.1.0B1";
+	public static final String version = "1.4.6R2.1.0RC1";
 	public static final String modName = "Nether Ores";
 	
 	public static final String mobTexureFolder = "/textures/mob/powercrystals/netherores";
@@ -77,7 +77,12 @@ public class NetherOresCore implements IUpdateableMod
 	@PreInit
 	public void preInit(FMLPreInitializationEvent evt)
 	{
-		loadConfig(new File(evt.getModConfigurationDirectory() + "powercrystals/netherores_common.cfg"));
+		setConfigFolderBase(evt.getModConfigurationDirectory());
+		
+		loadConfig(getCommonConfig());
+		
+		extractLang(new String[] { "en_US" });
+		loadLang();
 	}
 
 	@Init
@@ -179,7 +184,7 @@ public class NetherOresCore implements IUpdateableMod
 		forceOreSpawn = c.get(Configuration.CATEGORY_GENERAL, "ForceOreSpawn", false);
 		forceOreSpawn.comment = "If true, will spawn nether ores regardless of if a furnace or macerator recipe was found. If false, at least one of those two must be found to spawn the ore.";
 		enableHellfish = c.get(Configuration.CATEGORY_GENERAL, "HellfishEnable", true);
-		enableHellfish.comment = "If true, Hellfish will spawn in the Nether. Note that setting this false will not remove already spawned Hellfish.";
+		enableHellfish.comment = "If true, Hellfish will spawn in the Nether. Note that setting this false will not remove already spawned Hellfish blocks.";
 
 		for(Ores o : Ores.values())
 		{
@@ -205,12 +210,6 @@ public class NetherOresCore implements IUpdateableMod
 	public String getModName()
 	{
 		return modName;
-	}
-
-	@Override
-	public String getModFolder()
-	{
-		return modId;
 	}
 
 	@Override

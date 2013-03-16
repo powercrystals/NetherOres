@@ -2,13 +2,15 @@ package powercrystals.netherores.ores;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public class ItemBlockNetherOre extends ItemBlock
 {
+	private String[] _oreNames =
+		{ "coal", "diamond", "gold", "iron", "lapis", "redstone", "copper", "tin", "emerald", "silver", "lead", "uranium", "nikolite", "ruby", "greensapphire", "sapphire" };
+	
 	public ItemBlockNetherOre(int i)
 	{
 		super(i);
@@ -25,7 +27,8 @@ public class ItemBlockNetherOre extends ItemBlock
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{
-		return Block.blocksList[getBlockID()].getUnlocalizedName() + "_" + stack.getItemDamage();
+		int md = Math.min(stack.getItemDamage(), _oreNames.length);
+		return "tile.blockNetherOres." + _oreNames[md];
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })

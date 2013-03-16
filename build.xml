@@ -160,6 +160,9 @@
 				<include name="*.png" />
 			</fileset>
 		</copy>
+		<copy todir="${classes.dir}/powercrystals/netherores/lang">
+			<fileset dir="${mcpsrc.dir}/powercrystals/netherores/lang" />
+		</copy>
 	</target>
 
 	<target name="build-number-there" if="env.BUILD_NUMBER" >
