@@ -184,7 +184,7 @@ public class NetherOresCore extends BaseMod
 		forceOreSpawn = c.get(Configuration.CATEGORY_GENERAL, "ForceOreSpawn", false);
 		forceOreSpawn.comment = "If true, will spawn nether ores regardless of if a furnace or macerator recipe was found. If false, at least one of those two must be found to spawn the ore.";
 		enableHellfish = c.get(Configuration.CATEGORY_GENERAL, "HellfishEnable", true);
-		enableHellfish.comment = "If true, Hellfish will spawn in the Nether. Note that setting this false will not remove already spawned Hellfish blocks.";
+		enableHellfish.comment = "If true, Hellfish will spawn in the Nether. Note that setting this false will not kill active Hellfish mobs.";
 
 		for(Ores o : Ores.values())
 		{
