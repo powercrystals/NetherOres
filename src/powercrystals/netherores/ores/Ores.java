@@ -14,23 +14,29 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public enum Ores
 {
-	coal(0, "Coal", 8, 16, 1, 4),
-	diamond(1, "Diamond", 4, 3, 1, 4),
-	gold(2, "Gold", 8, 6, 1, 4),
-	iron(3, "Iron", 8, 8, 1, 4),
-	lapis(4, "Lapis", 6, 6, 1, 24),
-	redstone(5, "Redstone", 6, 8, 1, 24),
-	copper(6, "Copper", 8, 8, 1, 4),
-	tin(7, "Tin", 8, 8, 1, 4),
-	emerald(8, "Emerald", 3, 2, 1, 4),
-	silver(9, "Silver", 6, 4, 1, 4),
-	lead(10, "Lead", 6, 6, 1, 4),
-	uranium(11, "Uranium", 3, 2, 1, 4),
-	nikolite(12, "Nikolite", 8, 4, 1, 24),
-	ruby(13, "Ruby", 6, 3, 1, 4),
-	rpemerald(14, "GreenSapphire", 6, 3, 1, 4),
-	sapphire(15, "Sapphire", 6, 3, 1, 4);
+	coal(0, 0, "Coal", 8, 16, 1, 4),
+	diamond(0, 1, "Diamond", 4, 3, 1, 4),
+	gold(0, 2, "Gold", 8, 6, 1, 4),
+	iron(0, 3, "Iron", 8, 8, 1, 4),
+	lapis(0, 4, "Lapis", 6, 6, 1, 24),
+	redstone(0, 5, "Redstone", 6, 8, 1, 24),
+	copper(0, 6, "Copper", 8, 8, 1, 4),
+	tin(0, 7, "Tin", 8, 8, 1, 4),
+	emerald(0, 8, "Emerald", 3, 2, 1, 4),
+	silver(0, 9, "Silver", 6, 4, 1, 4),
+	lead(0, 10, "Lead", 6, 6, 1, 4),
+	uranium(0, 11, "Uranium", 3, 2, 1, 4),
+	nikolite(0, 12, "Nikolite", 8, 4, 1, 24),
+	ruby(0, 13, "Ruby", 6, 3, 1, 4),
+	rpemerald(0, 14, "GreenSapphire", 6, 3, 1, 4),
+	sapphire(0, 15, "Sapphire", 6, 3, 1, 4),
 	
+	platinum(1, 0, "Platinum", 3, 3, 1, 4),
+	ferrous(1, 1, "Ferrous", 4, 6, 1, 4),
+	pigiron(1, 2, "Steel", 3, 4, 1, 4),
+	iridium(1, 3, "Iridium", 1, 2, 1, 4);
+	
+	private int _blockIndex;
 	private int _metadata;
 	private String _oreName;
 	private String _netherOreName;
@@ -41,11 +47,13 @@ public enum Ores
 	private int _oreGenMaxY = 126;
 	private int _oreGenGroupsPerChunk = 6;
 	private int _oreGenBlocksPerGroup = 14;
+	private boolean _oreGenDisable = false;
 	private int _smeltCount;
 	private int _maceCount;
 	
-	private Ores(int meta, String oreSuffix, int groupsPerChunk, int blocksPerGroup, int smeltCount, int maceCount)
+	private Ores(int blockIndex, int meta, String oreSuffix, int groupsPerChunk, int blocksPerGroup, int smeltCount, int maceCount)
 	{
+		_blockIndex = blockIndex;
 		_metadata = meta;
 		_oreName = "ore" + oreSuffix;
 		_dustName = "dust" + oreSuffix;
@@ -54,6 +62,11 @@ public enum Ores
 		_oreGenBlocksPerGroup = blocksPerGroup;
 		_smeltCount = smeltCount;
 		_maceCount = maceCount; 
+	}
+	
+	public int getBlockIndex()
+	{
+		return _blockIndex;
 	}
 	
 	public int getMetadata()
@@ -101,10 +114,15 @@ public enum Ores
 		return _oreGenBlocksPerGroup;
 	}
 	
+	public boolean getDisabled()
+	{
+		return _oreGenDisable;
+	}
+	
 	public void load()
 	{
-		MinecraftForge.setBlockHarvestLevel(NetherOresCore.blockNetherOres, _metadata, "pickaxe", 2);
-		ItemStack oreStack = new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata);
+		MinecraftForge.setBlockHarvestLevel(NetherOresCore.getOreBlock(_blockIndex), _metadata, "pickaxe", 2);
+		ItemStack oreStack = new ItemStack(NetherOresCore.getOreBlock(_blockIndex), 1, _metadata);
 		OreDictionary.registerOre(_netherOreName, oreStack);
 	}
 	
@@ -115,7 +133,7 @@ public enum Ores
 		{
 			ItemStack smeltTo = smeltStack.copy();
 			smeltTo.stackSize = _smeltCount;
-			FurnaceRecipes.smelting().addSmelting(NetherOresCore.blockNetherOres.blockID, _metadata, smeltTo, 1F);
+			FurnaceRecipes.smelting().addSmelting(NetherOresCore.getOreBlock(_blockIndex).blockID, _metadata, smeltTo, 1F);
 		}
 		
 		if(NetherOresCore.enableInductionSmelterRecipes.getBoolean(true) && Loader.isModLoaded("ThermalExpansion|Factory"))
@@ -126,8 +144,8 @@ public enum Ores
 			smeltToReg.stackSize += 1;
 			smeltToRich.stackSize += 2;
 		   
-			CraftingManagers.smelterManager.addRecipe(320, new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), new ItemStack(Block.sand), smeltToReg, ItemRegistry.getItem("slagRich", 1), 10, false);
-			CraftingManagers.smelterManager.addRecipe(400, new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), ItemRegistry.getItem("slagRich", 1), smeltToRich, ItemRegistry.getItem("slag", 1), 80, false);
+			CraftingManagers.smelterManager.addRecipe(320, new ItemStack(NetherOresCore.getOreBlock(_blockIndex), 1, _metadata), new ItemStack(Block.sand), smeltToReg, ItemRegistry.getItem("slagRich", 1), 10, false);
+			CraftingManagers.smelterManager.addRecipe(400, new ItemStack(NetherOresCore.getOreBlock(_blockIndex), 1, _metadata), ItemRegistry.getItem("slagRich", 1), smeltToRich, ItemRegistry.getItem("slag", 1), 80, false);
 		}
 	}
 	
@@ -138,7 +156,7 @@ public enum Ores
 			ItemStack maceTo = maceStack.copy();
 			maceTo.stackSize = _maceCount;
 
-			Ic2Recipes.addMaceratorRecipe(new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), maceTo.copy());
+			Ic2Recipes.addMaceratorRecipe(new ItemStack(NetherOresCore.getOreBlock(_blockIndex), 1, _metadata), maceTo.copy());
 		}
 		
 		if(NetherOresCore.enablePulverizerRecipes.getBoolean(true) && Loader.isModLoaded("ThermalExpansion|Factory"))
@@ -149,7 +167,7 @@ public enum Ores
 			pulvPriTo.stackSize = _maceCount;
 			pulvSecTo.stackSize = 1;
 		   
-			CraftingManagers.pulverizerManager.addRecipe(400, new ItemStack(NetherOresCore.blockNetherOres, 1, _metadata), pulvPriTo, pulvSecTo, 15, false);
+			CraftingManagers.pulverizerManager.addRecipe(400, new ItemStack(NetherOresCore.getOreBlock(_blockIndex), 1, _metadata), pulvPriTo, pulvSecTo, 15, false);
 		}
 	}
 	
@@ -159,6 +177,7 @@ public enum Ores
 		_oreGenMinY = c.get("WorldGen", _oreName + "MinY", _oreGenMinY).getInt();
 		_oreGenGroupsPerChunk = c.get("WorldGen", _oreName + "GroupsPerChunk", _oreGenGroupsPerChunk).getInt();
 		_oreGenBlocksPerGroup = c.get("WorldGen", _oreName + "BlocksPerGroup", _oreGenBlocksPerGroup).getInt();
+		_oreGenDisable = c.get("WorldGen", _oreName + "Disable", false).getBoolean(false);
 		
 		if(_oreGenMinY >= _oreGenMaxY)
 		{

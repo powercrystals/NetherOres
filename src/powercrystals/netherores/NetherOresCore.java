@@ -51,12 +51,14 @@ public class NetherOresCore extends BaseMod
 	public static final String version = "1.4.6R2.1.0RC1";
 	public static final String modName = "Nether Ores";
 	
-	public static final String mobTexureFolder = "/textures/mob/powercrystals/netherores";
+	public static final String mobTexureFolder = "/textures/mob/powercrystals/netherores/";
 
-	public static Block blockNetherOres;
+	public static Block blockNetherOres0;
+	public static Block blockNetherOres1;
 	public static Block blockHellfish;
 	
-	private static Property netherOreBlockId;
+	private static Property netherOreBlock0Id;
+	private static Property netherOreBlock1Id;
 	private static Property hellfishBlockId;
 
 	public static Property explosionPower;
@@ -88,10 +90,12 @@ public class NetherOresCore extends BaseMod
 	@Init
 	public void load(FMLInitializationEvent evt)
 	{
-		blockNetherOres = new BlockNetherOres(netherOreBlockId.getInt(), 0);
+		blockNetherOres0 = new BlockNetherOres(netherOreBlock0Id.getInt(), 0);
+		blockNetherOres1 = new BlockNetherOres(netherOreBlock1Id.getInt(), 1);
 		blockHellfish = new BlockHellfish(hellfishBlockId.getInt());
 		
-		GameRegistry.registerBlock(blockNetherOres, ItemBlockNetherOre.class, "netherOresBlockOres");
+		GameRegistry.registerBlock(blockNetherOres0, ItemBlockNetherOre.class, blockNetherOres0.getUnlocalizedName());
+		GameRegistry.registerBlock(blockNetherOres1, ItemBlockNetherOre.class, blockNetherOres1.getUnlocalizedName());
 		GameRegistry.registerBlock(blockHellfish, "netherOresBlockHellfish");
 		GameRegistry.registerWorldGenerator(new NetherOresWorldGenHandler());
 		
@@ -140,6 +144,13 @@ public class NetherOresCore extends BaseMod
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
+	public static Block getOreBlock(int index)
+	{
+		if(index == 0) return blockNetherOres0;
+		else if(index == 1) return blockNetherOres1;
+		return null;
+	}
+	
 	private void registerOreDictionaryEntry(String oreName, ItemStack stack)
 	{
 		for(Ores ore : Ores.values())
@@ -160,8 +171,9 @@ public class NetherOresCore extends BaseMod
 		Configuration c = new Configuration(f);
 		c.load();
 
-		netherOreBlockId = c.getBlock(Configuration.CATEGORY_BLOCK, "ID.NetherOreBlock", 1440);
+		netherOreBlock0Id = c.getBlock(Configuration.CATEGORY_BLOCK, "ID.NetherOreBlock", 1440);
 		hellfishBlockId = c.getBlock(Configuration.CATEGORY_BLOCK, "ID.HellfishBlock", 1441);
+		netherOreBlock1Id = c.getBlock(Configuration.CATEGORY_BLOCK, "ID.NetherOreBlock1", 1442);
 		
 		explosionPower = c.get(Configuration.CATEGORY_GENERAL, "ExplosionPower", 2);
 		explosionPower.comment = "How powerful an explosion will be. Creepers are 3, TNT is 4, electrified creepers are 6. This affects both the ability of the explosion to punch through blocks as well as the blast radius.";

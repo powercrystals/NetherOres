@@ -11,7 +11,6 @@ import net.minecraft.world.World;
 public class EntityArmedOre extends Entity
 {
 	private int _fuse;
-	private int _oreMeta;
 	
 	public EntityArmedOre(World world)
 	{
@@ -33,16 +32,6 @@ public class EntityArmedOre extends Entity
 		prevPosX = x;
 		prevPosY = y;
 		prevPosZ = z;
-	}
-	
-	public void setMeta(int meta)
-	{
-		_oreMeta = meta;
-	}
-	
-	public int getMeta()
-	{
-		return _oreMeta;
 	}
 
 	@Override
@@ -81,7 +70,7 @@ public class EntityArmedOre extends Entity
 	private void explode()
 	{
 		int blockId = worldObj.getBlockId(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ));
-		if(blockId == NetherOresCore.blockNetherOres.blockID)
+		if(blockId == NetherOresCore.blockNetherOres0.blockID || blockId == NetherOresCore.blockNetherOres1.blockID)
 		{
 			worldObj.newExplosion(null, this.posX, this.posY, this.posZ, NetherOresCore.explosionPower.getInt(), true, true);
 		}
@@ -91,14 +80,12 @@ public class EntityArmedOre extends Entity
 	protected void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
 	{
 		par1NBTTagCompound.setByte("Fuse", (byte)_fuse);
-		par1NBTTagCompound.setByte("OreMeta", (byte)_oreMeta);
 	}
 
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
 	{
 		_fuse = par1NBTTagCompound.getByte("Fuse");
-		_oreMeta = par1NBTTagCompound.getByte("OreMeta");
 	}
 
 	@SideOnly(Side.CLIENT)

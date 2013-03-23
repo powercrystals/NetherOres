@@ -3,9 +3,6 @@ package powercrystals.netherores.ores;
 import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
-
-import powercrystals.core.net.PacketWrapper;
 import powercrystals.netherores.NetherOresCore;
 import powercrystals.netherores.entity.EntityArmedOre;
 
@@ -22,6 +19,7 @@ import net.minecraft.world.World;
 public class BlockNetherOres extends Block
 {	
 	private static int _aggroRange = 32;
+	private int _blockIndex = 0;
 	private Icon[] _netherOresIcons = new Icon[16];
 	
 	public BlockNetherOres(int blockId, int blockIndex)
@@ -29,14 +27,20 @@ public class BlockNetherOres extends Block
 		super(blockId, Block.netherrack.blockMaterial);
 		setHardness(5.0F);
 		setResistance(1.0F);
-		setUnlocalizedName("blockNetherOres" + blockIndex);
+		setUnlocalizedName("netherores.ore." + blockIndex);
 		setStepSound(soundStoneFootstep);
+		_blockIndex = blockIndex;
+	}
+	
+	public int getBlockIndex()
+	{
+		return _blockIndex;
 	}
 	
 	@Override
 	public void func_94332_a(IconRegister ir)
 	{
-		for(int i = 0; i < 16; i++)
+		for(int i = 0; i < (_blockIndex == 0 ? 16 : 4); i++)
 		{
 			_netherOresIcons[i] = ir.func_94245_a("powercrystals/netherores/" + getUnlocalizedName() + "_" + i);
 		}
@@ -107,13 +111,8 @@ public class BlockNetherOres extends Block
 						
 						if(world.getBlockId(tx, ty, tz) == blockID && world.rand.nextInt(1000) < NetherOresCore.explosionProbability.getInt())
 						{
-							int meta = world.getBlockMetadata(tx, ty, tz);
-							
 							EntityArmedOre eao = new EntityArmedOre(world, tx + 0.5, ty + 0.5, tz + 0.5);
-							eao.setMeta(meta);
 							world.spawnEntityInWorld(eao);
-							
-							PacketDispatcher.sendPacketToAllAround(tx, ty, tz, 50, world.getWorldInfo().getDimension(), PacketWrapper.createPacket(NetherOresCore.modId, 0, new Object[] { tx, ty, tz, meta }));
 							
 							world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.fuse", 1.0F, 1.0F);
 						}

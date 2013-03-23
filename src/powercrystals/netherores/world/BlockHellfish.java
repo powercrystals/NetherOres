@@ -20,7 +20,7 @@ public class BlockHellfish extends BlockNetherrack
 		super(blockId);
 		setHardness(0.4F);
 		setStepSound(soundStoneFootstep);
-		setUnlocalizedName("blockNetherOresHellfish");
+		setUnlocalizedName("netherores.hellfish");
 	}
 	
 	@Override

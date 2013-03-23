@@ -12,11 +12,10 @@ public class NEINetherOresConfig implements IConfigureNEI
 	public void loadConfig()
 	{
 		MultiItemRange subTypes = new MultiItemRange();
-		int blockID = NetherOresCore.blockNetherOres.blockID;
-		for (int i = 0; i <= 15; i++)
-		{
-			subTypes.add(blockID, i, i);
-		}
+
+		subTypes.add(NetherOresCore.blockNetherOres0, 0, 15);
+		subTypes.add(NetherOresCore.blockNetherOres1, 0, 3);
+		
 		API.addSetRange("NetherOres", subTypes);
 	}
 

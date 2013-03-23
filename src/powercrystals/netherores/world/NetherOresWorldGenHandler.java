@@ -17,7 +17,7 @@ public class NetherOresWorldGenHandler implements IWorldGenerator
 	{
 		if(world.getBiomeGenForCoords(chunkX, chunkZ) == BiomeGenBase.hell)
 		{
-			generateNether(world, random, chunkX*16, chunkZ*16);
+			generateNether(world, random, chunkX * 16, chunkZ * 16);
 		}
 	}
 
@@ -25,21 +25,21 @@ public class NetherOresWorldGenHandler implements IWorldGenerator
 	{
 		for(Ores o : Ores.values())
 		{
-			if(o.isRegisteredSmelting() || o.isRegisteredMacerator() || NetherOresCore.forceOreSpawn.getBoolean(false))
+			if((o.isRegisteredSmelting() || o.isRegisteredMacerator() || NetherOresCore.forceOreSpawn.getBoolean(false)) && !o.getDisabled())
 			{
 				for(int i = 0; i < o.getGroupsPerChunk(); i++)
 				{
 					int x = chunkX + random.nextInt(16); 
 					int y = o.getMinY() + random.nextInt(o.getMaxY() - o.getMinY());
 					int z = chunkZ + random.nextInt(16);
-					new WorldGenNetherOres(NetherOresCore.blockNetherOres.blockID, o.getMetadata(), o.getBlocksPerGroup()).generate(world, random, x, y, z);
+					new WorldGenNetherOres(NetherOresCore.getOreBlock(o.getBlockIndex()).blockID, o.getMetadata(), o.getBlocksPerGroup()).generate(world, random, x, y, z);
 				}
 			}
 		}
 		
 		if(NetherOresCore.enableHellfish.getBoolean(true))
 		{
-			for(int i = 0; i < 5; i++)
+			for(int i = 0; i < 9; i++)
 			{
 				int x = chunkX + random.nextInt(16); 
 				int y = random.nextInt(128);
