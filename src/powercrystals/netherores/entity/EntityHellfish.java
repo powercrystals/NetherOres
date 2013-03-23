@@ -14,6 +14,7 @@ public class EntityHellfish extends EntitySilverfish
 		super(world);
 		this.texture = NetherOresCore.mobTexureFolder + "hellfish.png";
 		this.moveSpeed = 0.9F;
+		this.isImmuneToFire = true;
 	}
 	
 	@Override
