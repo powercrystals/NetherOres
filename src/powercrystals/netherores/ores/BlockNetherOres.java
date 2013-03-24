@@ -38,11 +38,11 @@ public class BlockNetherOres extends Block
 	}
 	
 	@Override
-	public void func_94332_a(IconRegister ir)
+	public void registerIcons(IconRegister ir)
 	{
 		for(int i = 0; i < (_blockIndex == 0 ? 16 : 4); i++)
 		{
-			_netherOresIcons[i] = ir.func_94245_a("powercrystals/netherores/" + getUnlocalizedName() + "_" + i);
+			_netherOresIcons[i] = ir.registerIcon("powercrystals/netherores/" + getUnlocalizedName() + "_" + i);
 		}
 	}
 	

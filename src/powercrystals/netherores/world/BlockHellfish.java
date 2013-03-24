@@ -24,9 +24,9 @@ public class BlockHellfish extends BlockNetherrack
 	}
 	
 	@Override
-	public void func_94332_a(IconRegister ir)
+	public void registerIcons(IconRegister ir)
 	{
-		_icon = ir.func_94245_a("powercrystals/netherores/" + getUnlocalizedName());
+		_icon = ir.registerIcon("powercrystals/netherores/" + getUnlocalizedName());
 	}
 	
 	@Override
@@ -41,11 +41,13 @@ public class BlockHellfish extends BlockNetherrack
 		return Block.netherrack.blockID;
 	}
 	
+	@Override
 	public int quantityDropped(Random rand)
 	{
 		return NetherOresCore.enableHellfish.getBoolean(true) ? 0 : 1;
 	}
-	
+
+	@Override
 	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int fortune)
 	{
 		spawnHellfish(world, x, y, z);

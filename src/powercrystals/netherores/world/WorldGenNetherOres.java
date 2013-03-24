@@ -63,7 +63,7 @@ public class WorldGenNetherOres extends WorldGenerator
 						double d14 = (((double)blockZ + 0.5D) - d8) / (d10 / 2D);
 						if(d12 * d12 + d13 * d13 + d14 * d14 < 1.0D && world.getBlockId(blockX, blockY, blockZ) == Block.netherrack.blockID)
 						{
-							world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, _minableBlockId, _minableBlockMeta, 2);
+							world.setBlock(blockX, blockY, blockZ, _minableBlockId, _minableBlockMeta, 2);
 						}
 					}
 				}
