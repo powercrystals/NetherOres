@@ -14,27 +14,28 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public enum Ores
 {
-	coal(0, 0, "Coal", 8, 16, 1, 4),
-	diamond(0, 1, "Diamond", 4, 3, 1, 4),
-	gold(0, 2, "Gold", 8, 6, 1, 4),
-	iron(0, 3, "Iron", 8, 8, 1, 4),
-	lapis(0, 4, "Lapis", 6, 6, 1, 24),
-	redstone(0, 5, "Redstone", 6, 8, 1, 24),
-	copper(0, 6, "Copper", 8, 8, 1, 4),
-	tin(0, 7, "Tin", 8, 8, 1, 4),
-	emerald(0, 8, "Emerald", 3, 2, 1, 4),
-	silver(0, 9, "Silver", 6, 4, 1, 4),
-	lead(0, 10, "Lead", 6, 6, 1, 4),
-	uranium(0, 11, "Uranium", 3, 2, 1, 4),
-	nikolite(0, 12, "Nikolite", 8, 4, 1, 24),
-	ruby(0, 13, "Ruby", 6, 3, 1, 4),
-	rpemerald(0, 14, "GreenSapphire", 6, 3, 1, 4),
-	sapphire(0, 15, "Sapphire", 6, 3, 1, 4),
+	coal(0, 0, "Coal", 8, 16, 2, 4),
+	diamond(0, 1, "Diamond", 4, 3, 2, 4),
+	gold(0, 2, "Gold", 8, 6, 2, 4),
+	iron(0, 3, "Iron", 8, 8, 2, 4),
+	lapis(0, 4, "Lapis", 6, 6, 2, 24),
+	redstone(0, 5, "Redstone", 6, 8, 2, 24),
+	copper(0, 6, "Copper", 8, 8, 2, 4),
+	tin(0, 7, "Tin", 8, 8, 2, 4),
+	emerald(0, 8, "Emerald", 3, 2, 2, 4),
+	silver(0, 9, "Silver", 6, 4, 2, 4),
+	lead(0, 10, "Lead", 6, 6, 2, 4),
+	uranium(0, 11, "Uranium", 3, 2, 2, 4),
+	nikolite(0, 12, "Nikolite", 8, 4, 2, 24),
+	ruby(0, 13, "Ruby", 6, 3, 2, 4),
+	rpemerald(0, 14, "GreenSapphire", 6, 3, 2, 4),
+	sapphire(0, 15, "Sapphire", 6, 3, 2, 4),
 	
-	platinum(1, 0, "Platinum", 3, 3, 1, 4),
-	ferrous(1, 1, "Ferrous", 4, 6, 1, 4),
-	pigiron(1, 2, "Steel", 3, 4, 1, 4),
-	iridium(1, 3, "Iridium", 1, 2, 1, 4);
+	platinum(1, 0, "Platinum", 3, 3, 2, 4),
+	ferrous(1, 1, "Ferrous", 4, 6, 2, 4),
+	pigiron(1, 2, "Steel", 3, 4, 2, 4),
+	iridium(1, 3, "Iridium", 1, 2, 2, 4),
+	osmium(1, 0, "Osmium", 3, 3, 2, 4);
 	
 	private int _blockIndex;
 	private int _metadata;
