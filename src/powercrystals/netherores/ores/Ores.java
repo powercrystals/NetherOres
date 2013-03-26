@@ -35,7 +35,7 @@ public enum Ores
 	ferrous(1, 1, "Ferrous", 4, 6, 2, 4),
 	pigiron(1, 2, "Steel", 3, 4, 2, 4),
 	iridium(1, 3, "Iridium", 1, 2, 2, 4),
-	osmium(1, 0, "Osmium", 3, 3, 2, 4);
+	osmium(1, 0, "Osmium", 8, 7, 2, 4);
 	
 	private int _blockIndex;
 	private int _metadata;
