@@ -5,6 +5,7 @@ import java.util.Random;
 
 import powercrystals.netherores.NetherOresCore;
 import powercrystals.netherores.entity.EntityArmedOre;
+import powercrystals.netherores.gui.NOCreativeTab;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -29,6 +30,7 @@ public class BlockNetherOres extends Block
 		setResistance(1.0F);
 		setUnlocalizedName("netherores.ore." + blockIndex);
 		setStepSound(soundStoneFootstep);
+		setCreativeTab(NOCreativeTab.tab);
 		_blockIndex = blockIndex;
 	}
 	
