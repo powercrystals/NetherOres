@@ -45,17 +45,11 @@
 		<echo message="Downloading Thermal Expansion API... " />
 		<get src="https://dl.dropbox.com/u/57416963/Minecraft/ThermalExpansion/Release/ThermalExpansion-API-2.2.0.zip" dest="${download.dir}/thermalexpansion.zip" />
 		
-		<echo message="Downloading CodeChickenCore... " />
-		<get src="http://porpchan.org/CodeChickenCore%200.7.1.0-deobf.jar" dest="${lib.dir}/CodeChickenCore 0.7.1.0-deobf.jar" />
-		
-		<echo message="Downloading NEI... " />
-		<get src="http://porpchan.org/NotEnoughItems%201.4.5.1-deobf.jar" dest="${lib.dir}/NotEnoughItems 1.4.5.1-deobf.jar" />
-		
 		<echo message="Downloading IC2... " />
 		<get src="http://ic2api.player.to:8080/job/IC2_lf/205/artifact/packages/industrialcraft-2-api_1.113.205-lf.zip" dest="${download.dir}/industrialcraft-2-api.zip" />
 		
 		<echo message="Downloading BuildCraft API..." />
-		<get src="https://github.com/BuildCraft/BuildCraft/archive/mc-1.5.zip" dest="${download.dir}/BuildCraft-master.zip"/>
+		<get src="https://github.com/BuildCraft/BuildCraft/archive/mc1.5.zip" dest="${download.dir}/BuildCraft-master.zip"/>
 	</target>
 
 	<target name="extract-dependencies" depends="setup-forge,get-dependencies">
@@ -66,7 +60,7 @@
 		<echo message="Extracting BuildCraft API..." />
 		<unzip src="${download.dir}/BuildCraft-master.zip" dest="${download.dir}"/>
 		<mkdir dir="${mcpsrc.dir}/buildcraft/" />
-		<move file="${download.dir}/BuildCraft-master/common/buildcraft/api" todir="${mcpsrc.dir}/buildcraft/"/>
+		<move file="${download.dir}/BuildCraft-mc1.5/common/buildcraft/api" todir="${mcpsrc.dir}/buildcraft/"/>
 		
 		<echo message="Extracting Thermal Expansion API... " />
 		<unzip src="${download.dir}/thermalexpansion.zip" dest="${download.dir}" />
