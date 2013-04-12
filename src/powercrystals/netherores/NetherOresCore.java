@@ -48,7 +48,7 @@ connectionHandler = ConnectionHandler.class)
 public class NetherOresCore extends BaseMod
 {
 	public static final String modId = "NetherOres";
-	public static final String version = "1.5.1R2.1.0RC3";
+	public static final String version = "1.5.1R2.1.0";
 	public static final String modName = "Nether Ores";
 	
 	public static final String mobTexureFolder = "/textures/mob/powercrystals/netherores/";
