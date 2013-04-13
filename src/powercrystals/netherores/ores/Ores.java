@@ -137,7 +137,7 @@ public enum Ores
 			FurnaceRecipes.smelting().addSmelting(NetherOresCore.getOreBlock(_blockIndex).blockID, _metadata, smeltTo, 1F);
 		}
 		
-		if(NetherOresCore.enableInductionSmelterRecipes.getBoolean(true) && Loader.isModLoaded("ThermalExpansion|Factory"))
+		if(NetherOresCore.enableInductionSmelterRecipes.getBoolean(true) && Loader.isModLoaded("ThermalExpansion"))
 		{
 			ItemStack smeltToReg = smeltStack.copy();
 			ItemStack smeltToRich = smeltStack.copy();
@@ -160,7 +160,7 @@ public enum Ores
 			Ic2Recipes.addMaceratorRecipe(new ItemStack(NetherOresCore.getOreBlock(_blockIndex), 1, _metadata), maceTo.copy());
 		}
 		
-		if(NetherOresCore.enablePulverizerRecipes.getBoolean(true) && Loader.isModLoaded("ThermalExpansion|Factory"))
+		if(NetherOresCore.enablePulverizerRecipes.getBoolean(true) && Loader.isModLoaded("ThermalExpansion"))
 		{
 			ItemStack pulvPriTo = maceStack.copy();
 			ItemStack pulvSecTo = new ItemStack(Block.netherrack);
