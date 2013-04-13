@@ -40,7 +40,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = NetherOresCore.modId, name = NetherOresCore.modName, version = NetherOresCore.version, dependencies = "required-after:PowerCrystalsCore;after:IC2;after:ThermalExpansion|Factory")
+@Mod(modid = NetherOresCore.modId, name = NetherOresCore.modName, version = NetherOresCore.version, dependencies = "required-after:PowerCrystalsCore;after:IC2;after:ThermalExpansion")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false,
 clientPacketHandlerSpec = @SidedPacketHandler(channels = { NetherOresCore.modId }, packetHandler = ClientPacketHandler.class),
 serverPacketHandlerSpec = @SidedPacketHandler(channels = { NetherOresCore.modId }, packetHandler = ServerPacketHandler.class),
@@ -48,7 +48,7 @@ connectionHandler = ConnectionHandler.class)
 public class NetherOresCore extends BaseMod
 {
 	public static final String modId = "NetherOres";
-	public static final String version = "1.5.1R2.1.0";
+	public static final String version = "1.5.1R2.1.1B1";
 	public static final String modName = "Nether Ores";
 	
 	public static final String mobTexureFolder = "/textures/mob/powercrystals/netherores/";
@@ -83,7 +83,7 @@ public class NetherOresCore extends BaseMod
 		
 		loadConfig(getCommonConfig());
 		
-		extractLang(new String[] { "en_US" });
+		extractLang(new String[] { "en_US", "es_AR", "es_ES", "es_MX", "es_UY", "es_VE" });
 		loadLang();
 	}
 
