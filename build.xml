@@ -46,7 +46,7 @@
 		<get src="https://dl.dropboxusercontent.com/u/57416963/Minecraft/Beta/ThermalExpansion-API-2.3.0.zip" dest="${download.dir}/thermalexpansion.zip" />
 		
 		<echo message="Downloading IC2... " />
-		<get src="http://ic2api.player.to:8080/job/IC2_lf/205/artifact/packages/industrialcraft-2-api_1.113.205-lf.zip" dest="${download.dir}/industrialcraft-2-api.zip" />
+		<get src="http://ic2api.player.to:8080/job/IC2_lf/294/artifact/packages/industrialcraft-2-api_1.115.294-lf.zip" dest="${download.dir}/industrialcraft-2-api.zip" />
 		
 		<echo message="Downloading BuildCraft API..." />
 		<get src="https://github.com/BuildCraft/BuildCraft/archive/master.zip" dest="${download.dir}/BuildCraft-master.zip"/>

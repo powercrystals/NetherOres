@@ -1,7 +1,7 @@
 package powercrystals.netherores.ores;
 
 import cpw.mods.fml.common.Loader;
-import ic2.api.Ic2Recipes;
+import ic2.api.recipe.Recipes;
 import powercrystals.netherores.NetherOresCore;
 import thermalexpansion.api.crafting.CraftingManagers;
 import thermalexpansion.api.item.ItemRegistry;
@@ -157,7 +157,7 @@ public enum Ores
 			ItemStack maceTo = maceStack.copy();
 			maceTo.stackSize = _maceCount;
 
-			Ic2Recipes.addMaceratorRecipe(new ItemStack(NetherOresCore.getOreBlock(_blockIndex), 1, _metadata), maceTo.copy());
+			 Recipes.macerator.addRecipe(new ItemStack(NetherOresCore.getOreBlock(_blockIndex), 1, _metadata), maceTo.copy());
 		}
 		
 		if(NetherOresCore.enablePulverizerRecipes.getBoolean(true) && Loader.isModLoaded("ThermalExpansion"))
