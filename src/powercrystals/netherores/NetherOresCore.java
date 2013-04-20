@@ -115,7 +115,7 @@ public class NetherOresCore extends BaseMod
 	@PostInit
 	public void postInit(FMLPostInitializationEvent e)
 	{
-		if(enableStandardFurnaceRecipes.getBoolean(true))
+		if(enableStandardFurnaceRecipes.getBoolean(true) || enableInductionSmelterRecipes.getBoolean(true))
 		{
 			Ores.coal.registerSmelting(new ItemStack(Block.oreCoal));
 			Ores.diamond.registerSmelting(new ItemStack(Block.oreDiamond));
@@ -125,7 +125,7 @@ public class NetherOresCore extends BaseMod
 			Ores.redstone.registerSmelting(new ItemStack(Block.oreRedstone));
 			Ores.emerald.registerSmelting(new ItemStack(Block.oreEmerald));
 		}
-		if(enableMaceratorRecipes.getBoolean(true))
+		if(enableMaceratorRecipes.getBoolean(true) || enablePulverizerRecipes.getBoolean(true))
 		{
 			Ores.diamond.registerMacerator(new ItemStack(Item.diamond));
 			Ores.coal.registerMacerator(new ItemStack(Item.coal));
