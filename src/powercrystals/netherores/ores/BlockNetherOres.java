@@ -9,6 +9,7 @@ import powercrystals.netherores.gui.NOCreativeTab;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.player.EntityPlayer;
@@ -79,7 +80,11 @@ public class BlockNetherOres extends Block
 	@Override
 	public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z)
 	{
-		checkExplosionChances(world, x, y, z);
+		if(player == null || !EnchantmentHelper.getSilkTouchModifier(player))
+		{
+			checkExplosionChances(world, x, y, z);				
+		}
+		
 		return super.removeBlockByPlayer(world, player, x, y, z);
 	}
 	
