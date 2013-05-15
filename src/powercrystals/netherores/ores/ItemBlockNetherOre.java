@@ -32,7 +32,7 @@ public class ItemBlockNetherOre extends ItemBlock
 	public String getUnlocalizedName(ItemStack stack)
 	{
 		int index = ((BlockNetherOres)Block.blocksList[getBlockID()]).getBlockIndex();
-		int md = Math.min(stack.getItemDamage(), _oreNames[index].length);
+		int md = Math.min(stack.getItemDamage(), _oreNames[index].length - 1);
 		return "tile.netherores.ore." + _oreNames[index][md];
 	}
 	
