@@ -12,7 +12,7 @@ public class ItemBlockNetherOre extends ItemBlock
 	private String[][] _oreNames =
 		{
 			{ "coal", "diamond", "gold", "iron", "lapis", "redstone", "copper", "tin", "emerald", "silver", "lead", "uranium", "nikolite", "ruby", "greensapphire", "sapphire" },
-			{ "platinum", "ferrous", "pigiron", "iridium" }
+			{ "platinum", "ferrous", "pigiron", "iridium", "osmium" }
 		};
 	
 	public ItemBlockNetherOre(int id)
