@@ -9,12 +9,6 @@ import net.minecraft.item.ItemStack;
 
 public class ItemBlockNetherOre extends ItemBlock
 {
-	private String[][] _oreNames =
-		{
-			{ "coal", "diamond", "gold", "iron", "lapis", "redstone", "copper", "tin", "emerald", "silver", "lead", "uranium", "nikolite", "ruby", "greensapphire", "sapphire" },
-			{ "platinum", "ferrous", "pigiron", "iridium", "osmium" }
-		};
-	
 	public ItemBlockNetherOre(int id)
 	{
 		super(id);
@@ -32,8 +26,9 @@ public class ItemBlockNetherOre extends ItemBlock
 	public String getUnlocalizedName(ItemStack stack)
 	{
 		int index = ((BlockNetherOres)Block.blocksList[getBlockID()]).getBlockIndex();
-		int md = Math.min(stack.getItemDamage(), _oreNames[index].length - 1);
-		return "tile.netherores.ore." + _oreNames[index][md];
+		Ores[] ores = Ores.values();
+		int md = Math.min(index * 16 + stack.getItemDamage(), ores.length - 1);
+		return "tile.netherores.ore." + ores[md].name();
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -41,7 +36,8 @@ public class ItemBlockNetherOre extends ItemBlock
 	public void getSubItems(int itemId, CreativeTabs creativeTab, List subTypes)
 	{
 		int index = ((BlockNetherOres)Block.blocksList[getBlockID()]).getBlockIndex();
-		for (int i = 0; i < _oreNames[index].length; i++)
+		Ores[] ores = Ores.values();
+		for (int i = 0, e = Math.min(index * 16 + 15, ores.length - 1) % 16; i <= e; ++i)
 		{
 			subTypes.add(new ItemStack(itemId, 1, i));
 		}

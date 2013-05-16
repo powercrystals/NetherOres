@@ -53,12 +53,10 @@ public class NetherOresCore extends BaseMod
 	
 	public static final String mobTexureFolder = "/textures/mob/powercrystals/netherores/";
 
-	public static Block blockNetherOres0;
-	public static Block blockNetherOres1;
+	public static Block[] blockNetherOres = new Block[(int)((Ores.values().length + 15) / 16)];
 	public static Block blockHellfish;
 	
-	private static Property netherOreBlock0Id;
-	private static Property netherOreBlock1Id;
+	private static Property[] netherOreBlockIds = new Property[blockNetherOres.length];
 	private static Property hellfishBlockId;
 
 	public static Property explosionPower;
@@ -90,12 +88,12 @@ public class NetherOresCore extends BaseMod
 	@Init
 	public void load(FMLInitializationEvent evt)
 	{
-		blockNetherOres0 = new BlockNetherOres(netherOreBlock0Id.getInt(), 0);
-		blockNetherOres1 = new BlockNetherOres(netherOreBlock1Id.getInt(), 1);
+		for (int i = 0, e = blockNetherOres.length; i < e; ++i)
+		{
+			Block b = blockNetherOres[i] = new BlockNetherOres(netherOreBlockIds[i].getInt(), i);
+			GameRegistry.registerBlock(b, ItemBlockNetherOre.class, b.getUnlocalizedName());
+		}
 		blockHellfish = new BlockHellfish(hellfishBlockId.getInt());
-		
-		GameRegistry.registerBlock(blockNetherOres0, ItemBlockNetherOre.class, blockNetherOres0.getUnlocalizedName());
-		GameRegistry.registerBlock(blockNetherOres1, ItemBlockNetherOre.class, blockNetherOres1.getUnlocalizedName());
 		GameRegistry.registerBlock(blockHellfish, "netherOresBlockHellfish");
 		GameRegistry.registerWorldGenerator(new NetherOresWorldGenHandler());
 		
@@ -146,8 +144,8 @@ public class NetherOresCore extends BaseMod
 	
 	public static Block getOreBlock(int index)
 	{
-		if(index == 0) return blockNetherOres0;
-		else if(index == 1) return blockNetherOres1;
+		if (index >= 0 && index < blockNetherOres.length)
+			return blockNetherOres[index];
 		return null;
 	}
 	
@@ -170,10 +168,14 @@ public class NetherOresCore extends BaseMod
 	{
 		Configuration c = new Configuration(f);
 		c.load();
-
-		netherOreBlock0Id = c.getBlock(Configuration.CATEGORY_BLOCK, "ID.NetherOreBlock", 1440);
-		hellfishBlockId = c.getBlock(Configuration.CATEGORY_BLOCK, "ID.HellfishBlock", 1441);
-		netherOreBlock1Id = c.getBlock(Configuration.CATEGORY_BLOCK, "ID.NetherOreBlock1", 1442);
+		
+		int baseID = 1440, curID = baseID;
+		
+		netherOreBlockIds[0] = c.getBlock(Configuration.CATEGORY_BLOCK, "ID.NetherOreBlock", curID++);
+		hellfishBlockId = c.getBlock(Configuration.CATEGORY_BLOCK, "ID.HellfishBlock", curID++);
+		for (int i = 1; i < netherOreBlockIds.length; ++i)
+			netherOreBlockIds[i] = c.getBlock(Configuration.CATEGORY_BLOCK, "ID.NetherOreBlock"+i, curID++);
+		// add new blocks using baseID-- or 1450ish
 		
 		explosionPower = c.get(Configuration.CATEGORY_GENERAL, "ExplosionPower", 2);
 		explosionPower.comment = "How powerful an explosion will be. Creepers are 3, TNT is 4, electrified creepers are 6. This affects both the ability of the explosion to punch through blocks as well as the blast radius.";

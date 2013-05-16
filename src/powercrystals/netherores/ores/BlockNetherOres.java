@@ -43,7 +43,8 @@ public class BlockNetherOres extends Block
 	@Override
 	public void registerIcons(IconRegister ir)
 	{
-		for(int i = 0; i < (_blockIndex == 0 ? 16 : 4); i++)
+		Ores[] ores = Ores.values();
+		for(int i = 0, e = Math.min(_blockIndex * 16 + 15, ores.length - 1) % 16; i <= e; i++)
 		{
 			_netherOresIcons[i] = ir.registerIcon("powercrystals/netherores/" + getUnlocalizedName() + "_" + i);
 		}

@@ -3,6 +3,7 @@ package powercrystals.netherores.entity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import powercrystals.netherores.NetherOresCore;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
@@ -70,7 +71,11 @@ public class EntityArmedOre extends Entity
 	private void explode()
 	{
 		int blockId = worldObj.getBlockId(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ));
-		if(blockId == NetherOresCore.blockNetherOres0.blockID || blockId == NetherOresCore.blockNetherOres1.blockID)
+		boolean found = false;
+		for (Block b : NetherOresCore.blockNetherOres)
+			if ((found = b.blockID == blockId))
+				break;
+		if (found)
 		{
 			worldObj.newExplosion(null, this.posX, this.posY, this.posZ, NetherOresCore.explosionPower.getInt(), true, true);
 		}

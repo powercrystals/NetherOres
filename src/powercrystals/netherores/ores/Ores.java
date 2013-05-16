@@ -14,28 +14,28 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public enum Ores
 {
-	coal(0, 0, "Coal", 8, 16, 2, 4),
-	diamond(0, 1, "Diamond", 4, 3, 2, 4),
-	gold(0, 2, "Gold", 8, 6, 2, 4),
-	iron(0, 3, "Iron", 8, 8, 2, 4),
-	lapis(0, 4, "Lapis", 6, 6, 2, 24),
-	redstone(0, 5, "Redstone", 6, 8, 2, 24),
-	copper(0, 6, "Copper", 8, 8, 2, 4),
-	tin(0, 7, "Tin", 8, 8, 2, 4),
-	emerald(0, 8, "Emerald", 3, 2, 2, 4),
-	silver(0, 9, "Silver", 6, 4, 2, 4),
-	lead(0, 10, "Lead", 6, 6, 2, 4),
-	uranium(0, 11, "Uranium", 3, 2, 2, 4),
-	nikolite(0, 12, "Nikolite", 8, 4, 2, 24),
-	ruby(0, 13, "Ruby", 6, 3, 2, 4),
-	rpemerald(0, 14, "GreenSapphire", 6, 3, 2, 4),
-	sapphire(0, 15, "Sapphire", 6, 3, 2, 4),
+	coal("Coal", 8, 16, 2, 4),
+	diamond("Diamond", 4, 3, 2, 4),
+	gold("Gold", 8, 6, 2, 4),
+	iron("Iron", 8, 8, 2, 4),
+	lapis("Lapis", 6, 6, 2, 24),
+	redstone("Redstone", 6, 8, 2, 24),
+	copper("Copper", 8, 8, 2, 4),
+	tin("Tin", 8, 8, 2, 4),
+	emerald("Emerald", 3, 2, 2, 4),
+	silver("Silver", 6, 4, 2, 4),
+	lead("Lead", 6, 6, 2, 4),
+	uranium("Uranium", 3, 2, 2, 4),
+	nikolite("Nikolite", 8, 4, 2, 24),
+	ruby("Ruby", 6, 3, 2, 4),
+	greensapphire("GreenSapphire", 6, 3, 2, 4),
+	sapphire("Sapphire", 6, 3, 2, 4),
 	
-	platinum(1, 0, "Platinum", 3, 3, 2, 4),
-	ferrous(1, 1, "Ferrous", 4, 6, 2, 4),
-	pigiron(1, 2, "Steel", 3, 4, 2, 4),
-	iridium(1, 3, "Iridium", 1, 2, 2, 4),
-	osmium(1, 4, "Osmium", 8, 7, 2, 4);
+	platinum("Platinum", 3, 3, 2, 4),
+	ferrous("Ferrous", 4, 6, 2, 4),
+	pigiron("Steel", 3, 4, 2, 4),
+	iridium("Iridium", 1, 2, 2, 4),
+	osmium("Osmium", 8, 7, 2, 4);
 	
 	private int _blockIndex;
 	private int _metadata;
@@ -52,10 +52,11 @@ public enum Ores
 	private int _smeltCount;
 	private int _maceCount;
 	
-	private Ores(int blockIndex, int meta, String oreSuffix, int groupsPerChunk, int blocksPerGroup, int smeltCount, int maceCount)
+	private Ores(String oreSuffix, int groupsPerChunk, int blocksPerGroup, int smeltCount, int maceCount)
 	{
-		_blockIndex = blockIndex;
-		_metadata = meta;
+		int meta = this.ordinal();
+		_blockIndex = (int)(meta / 16);
+		_metadata = meta % 16;
 		_oreName = "ore" + oreSuffix;
 		_dustName = "dust" + oreSuffix;
 		_netherOreName = "oreNether" + oreSuffix;
