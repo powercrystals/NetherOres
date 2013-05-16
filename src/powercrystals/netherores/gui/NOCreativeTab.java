@@ -16,7 +16,7 @@ public class NOCreativeTab extends CreativeTabs
 	@Override
 	public ItemStack getIconItemStack()
 	{
-		return new ItemStack(NetherOresCore.blockNetherOres0.blockID, 1, 1);
+		return new ItemStack(NetherOresCore.blockNetherOres[0].blockID, 1, 1);
 	}
 
 	@Override
