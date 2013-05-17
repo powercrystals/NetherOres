@@ -1,6 +1,7 @@
 package powercrystals.netherores;
 
 import java.io.File;
+import java.lang.reflect.Method;
 
 import powercrystals.core.mod.BaseMod;
 import powercrystals.core.updater.UpdateManager;
@@ -130,6 +131,24 @@ public class NetherOresCore extends BaseMod
 			Ores.redstone.registerMacerator(new ItemStack(Item.redstone));
 			Ores.lapis.registerMacerator(new ItemStack(Item.dyePowder, 1, 4));
 		}
+		try
+		{
+			Method laserOre = Class.forName("powercrystals.minefactoryreloaded.MFRRegistry").getMethod("registerLaserOre", int.class, ItemStack.class);
+			Ores ore = Ores.coal;
+			laserOre.invoke(null, 88, new ItemStack(getOreBlock(ore.getBlockIndex()), 1, ore.getMetadata()));
+			ore = Ores.iron;
+			laserOre.invoke(null, 75, new ItemStack(getOreBlock(ore.getBlockIndex()), 1, ore.getMetadata()));
+			ore = Ores.gold;
+			laserOre.invoke(null, 60, new ItemStack(getOreBlock(ore.getBlockIndex()), 1, ore.getMetadata()));
+			ore = Ores.redstone;
+			laserOre.invoke(null, 50, new ItemStack(getOreBlock(ore.getBlockIndex()), 1, ore.getMetadata()));
+			ore = Ores.lapis;
+			laserOre.invoke(null, 40, new ItemStack(getOreBlock(ore.getBlockIndex()), 1, ore.getMetadata()));
+			ore = Ores.diamond;
+			laserOre.invoke(null, 25, new ItemStack(getOreBlock(ore.getBlockIndex()), 1, ore.getMetadata()));
+			ore = Ores.emerald;
+			laserOre.invoke(null, 25, new ItemStack(getOreBlock(ore.getBlockIndex()), 1, ore.getMetadata()));
+		} catch (Throwable _) {}
 		
 		for(String oreName : OreDictionary.getOreNames())
 		{
