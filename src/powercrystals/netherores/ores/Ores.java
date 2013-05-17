@@ -32,7 +32,7 @@ public enum Ores
 	sapphire("Sapphire", 6, 3, 2, 4),
 	
 	platinum("Platinum", 3, 3, 2, 4),
-	ferrous("Ferrous", 4, 6, 2, 4),
+	nickel("Nickel", 4, 6, 2, 4),
 	pigiron("Steel", 3, 4, 2, 4),
 	iridium("Iridium", 1, 2, 2, 4),
 	osmium("Osmium", 8, 7, 2, 4);
