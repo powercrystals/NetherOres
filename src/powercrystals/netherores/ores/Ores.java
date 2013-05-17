@@ -153,6 +153,7 @@ public enum Ores
 	
 	public void registerMacerator(ItemStack maceStack)
 	{
+		_registeredMacerator = true;
 		if(NetherOresCore.enableMaceratorRecipes.getBoolean(true) && Loader.isModLoaded("IC2"))
 		{
 			ItemStack maceTo = maceStack.copy();
