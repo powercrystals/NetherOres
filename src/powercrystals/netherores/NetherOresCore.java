@@ -49,7 +49,7 @@ connectionHandler = ConnectionHandler.class)
 public class NetherOresCore extends BaseMod
 {
 	public static final String modId = "NetherOres";
-	public static final String version = "1.5.1R2.1.4";
+	public static final String version = "1.5.1R2.1.5B1";
 	public static final String modName = "Nether Ores";
 	
 	public static final String mobTexureFolder = "/textures/mob/powercrystals/netherores/";
@@ -71,6 +71,7 @@ public class NetherOresCore extends BaseMod
 	public static Property enablePulverizerRecipes;
 	public static Property enableInductionSmelterRecipes;
 	public static Property forceOreSpawn;
+	public static Property worldGenAllDimensions;
 	
 	@SidedProxy(clientSide = "powercrystals.netherores.net.ClientProxy", serverSide="powercrystals.netherores.net.ServerProxy")
 	public static INetherOresProxy proxy;
@@ -218,6 +219,8 @@ public class NetherOresCore extends BaseMod
 		forceOreSpawn.comment = "If true, will spawn nether ores regardless of if a furnace or macerator recipe was found. If false, at least one of those two must be found to spawn the ore.";
 		enableHellfish = c.get(Configuration.CATEGORY_GENERAL, "HellfishEnable", true);
 		enableHellfish.comment = "If true, Hellfish will spawn in the Nether. Note that setting this false will not kill active Hellfish mobs.";
+		worldGenAllDimensions = c.get(Configuration.CATEGORY_GENERAL, "AllDimensionWorldGen", false);
+		worldGenAllDimensions.comment = "If true, Nether Ores oregen will run in all dimensions instead of just the Nether. It will still require netherrack to place ores.";
 
 		for(Ores o : Ores.values())
 		{

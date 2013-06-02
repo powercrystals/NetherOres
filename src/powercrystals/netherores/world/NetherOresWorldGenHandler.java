@@ -6,7 +6,6 @@ import powercrystals.netherores.NetherOresCore;
 import powercrystals.netherores.ores.Ores;
 
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;
 import cpw.mods.fml.common.IWorldGenerator;
 
@@ -15,7 +14,7 @@ public class NetherOresWorldGenHandler implements IWorldGenerator
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
 	{
-		if(world.getBiomeGenForCoords(chunkX, chunkZ) == BiomeGenBase.hell)
+		if(world.provider.dimensionId == -1)
 		{
 			generateNether(world, random, chunkX * 16, chunkZ * 16);
 		}
